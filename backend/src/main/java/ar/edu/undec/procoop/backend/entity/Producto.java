@@ -6,7 +6,6 @@ import lombok.Setter;
 
 /**
  * Entidad que representa los productos ofrecidos por la empresa.
- * El slug es un identificador único amigable para URLs.
  * La imagen almacena la ruta relativa al archivo guardado en disco.
  */
 @Entity
