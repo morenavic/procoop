@@ -18,7 +18,8 @@ CREATE TABLE usuario (
     numero_cuenta  VARCHAR(50)  NOT NULL UNIQUE,
     estado         VARCHAR(20)  NOT NULL DEFAULT 'PENDIENTE'
                         CHECK (estado IN ('ACTIVO', 'INACTIVO', 'PENDIENTE')),
-    id_rol         INTEGER NOT NULL REFERENCES rol(id_rol)
+    id_rol         INTEGER NOT NULL REFERENCES rol(id_rol),
+    imagen VARCHAR(255)
 );
 
 -- Tabla: token_recuperacion
@@ -78,7 +79,7 @@ INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol)
 VALUES (
     'Administrador',
     'admin@procoop.com.ar',
-    '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC',
     '0000',
     'ACTIVO',
     (SELECT id_rol FROM rol WHERE nombre = 'ADMINISTRADOR')
