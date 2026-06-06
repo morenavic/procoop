@@ -1,1 +1,102 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+  <header class="dashboard-encabezado">
+    <h1>Inicio</h1>
+    <p>Resumen general del sistema</p>
+  </header>
+
+  <!-- Estado de carga -->
+  @if (cargando()) {
+    <div class="estado-carga">
+      <div class="spinner-grande"></div>
+      <span>Cargando datos...</span>
+    </div>
+  }
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="estado-error">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Contenido -->
+  @if (!cargando() && !error() && datos()) {
+
+    <!-- Tarjetas de métricas -->
+    <section class="metricas">
+      @for (metrica of metricas; track metrica.clave) {
+        <div class="metrica-card" [class]="'metrica-card--' + metrica.color">
+          <div class="metrica-icono">
+            <ng-container [ngSwitch]="metrica.icono">
+              <svg *ngSwitchCase="'clientes'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <svg *ngSwitchCase="'productos'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+              <svg *ngSwitchCase="'documentos'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </ng-container>
+          </div>
+          <div class="metrica-info">
+            <span class="metrica-valor">{{ obtenerValorMetrica(metrica.clave) }}</span>
+            <span class="metrica-etiqueta">{{ metrica.etiqueta }}</span>
+          </div>
+        </div>
+      }
+    </section>
+
+    <!-- Actividades recientes -->
+    <section class="actividades">
+      <h2 class="seccion-titulo">Actividad reciente</h2>
+
+      @if (datos()!.actividadesRecientes.length === 0) {
+        <div class="sin-datos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          No hay actividad reciente para mostrar.
+        </div>
+      } @else {
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Título</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (actividad of datos()!.actividadesRecientes; track $index) {
+                <tr>
+                  <td>
+                    <span class="etiqueta" [class]="obtenerColorTipo(actividad.tipo)">
+                      {{ actividad.tipo }}
+                    </span>
+                  </td>
+                  <td class="celda-titulo">{{ actividad.titulo }}</td>
+                  <td class="celda-detalle">{{ actividad.descripcion ?? '—' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+  }
+
+</div>

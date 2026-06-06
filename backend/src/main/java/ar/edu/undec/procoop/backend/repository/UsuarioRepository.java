@@ -19,4 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByEmail(String email);
 
     boolean existsByNumeroCuenta(String numeroCuenta);
+
+    // Cuenta usuarios activos por rol — usado en el dashboard
+    long countByEstadoAndRolNombre(String estado, String rolNombre);
 }
