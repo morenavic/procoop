@@ -3,6 +3,7 @@ package ar.edu.undec.procoop.backend.repository;
 import ar.edu.undec.procoop.backend.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     // Cuenta usuarios activos por rol — usado en el dashboard
     long countByEstadoAndRolNombre(String estado, String rolNombre);
+
+    List<Usuario> findByRolNombre(String rolNombre);
 }

@@ -1,0 +1,74 @@
+<aside class="panel-formulario">
+
+  <div class="panel-encabezado">
+    <h2>{{ titulo }}</h2>
+    <button class="btn-cerrar" (click)="alCerrar.emit()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="panel-cuerpo">
+
+    @if (!esEdicion) {
+      <div class="info-aviso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span>
+          El cliente se crea con estado <strong>Pendiente</strong>.
+          La contraseña inicial será el número de cuenta.
+        </span>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="alerta-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+
+      <!-- Nombre -->
+      <div class="campo" [class.campo--error]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched">
+        <label>Nombre completo *</label>
+        <input type="text" formControlName="nombre" placeholder="Nombre y apellido"/>
+        @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+          <span class="campo-error">El nombre es obligatorio</span>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="campo" [class.campo--error]="formulario.get('email')?.invalid && formulario.get('email')?.touched">
+        <label>Email *</label>
+        <input type="email" formControlName="email" placeholder="correo@ejemplo.com"/>
+        @if (formulario.get('email')?.invalid && formulario.get('email')?.touched) {
+          <span class="campo-error">
+            @if (formulario.get('email')?.errors?.['required']) { El email es obligatorio }
+            @if (formulario.get('email')?.errors?.['email']) { Ingresá un email válido }
+          </span>
+        }
+      </div>
+
+      <!-- Número de cuenta -->
+      <div class="campo" [class.campo--error]="formulario.get('numeroCuenta')?.invalid && formulario.get('numeroCuenta')?.touched">
+        <label>Número de cuenta *</label>
+        <input type="text" formControlName="numeroCuenta" placeholder="Ej: 000123"/>
+        @if (formulario.get('numeroCuenta')?.invalid && formulario.get('numeroCuenta')?.touched) {
+          <span class="campo-error">El número de cuenta es obligatorio</span>
+        }
+      </div>
+
+      <div class="panel-acciones">
+        <button type="button" class="btn-secundario" (click)="alCerrar.emit()">Cancelar</button>
+        <button type="submit" class="btn-primario" [disabled]="cargando()">
+          @if (cargando()) { Guardando... } @else { Guardar }
+        </button>
+      </div>
+
+    </form>
+  </div>
+</aside>

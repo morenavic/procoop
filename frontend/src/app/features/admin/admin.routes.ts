@@ -16,13 +16,15 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'productos',
-    loadComponent: () =>
-      import('./productos/productos').then((m) => m.ProductosComponent),
+    loadComponent: () => import('./productos/productos').then((m) => m.ProductosComponent),
   },
   {
     path: 'servicios',
-    loadComponent: () =>
-      import('./servicios/servicios').then((m) => m.ServiciosComponent),
+    loadComponent: () => import('./servicios/servicios').then((m) => m.ServiciosComponent),
+  },
+  {
+    path: 'clientes',
+    loadComponent: () => import('./clientes/clientes').then((m) => m.ClientesComponent),
   },
   {
     path: '',

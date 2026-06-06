@@ -1,1 +1,205 @@
-<p>clientes works!</p>
+<div class="gestion">
+
+  <div class="gestion-encabezado">
+    <div>
+      <h1>Clientes</h1>
+      <p>Gestión de cuentas de clientes</p>
+    </div>
+    <button class="btn-primario" (click)="abrirFormularioNuevo()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Nuevo cliente
+    </button>
+  </div>
+
+  <!-- Filtros de estado -->
+  <div class="filtros">
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroEstado() === 'TODOS'"
+      (click)="setFiltro('TODOS')"
+    >
+      Todos
+      <span class="filtro-contador">{{ clientes().length }}</span>
+    </button>
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroEstado() === 'ACTIVO'"
+      (click)="setFiltro('ACTIVO')"
+    >
+      Activos
+      <span class="filtro-contador">{{ clientes().length - (totalPendientes() + totalInactivos()) }}</span>
+    </button>
+    <button
+      class="filtro-btn filtro-btn--alerta"
+      [class.activo]="filtroEstado() === 'PENDIENTE'"
+      (click)="setFiltro('PENDIENTE')"
+    >
+      Pendientes
+      @if (totalPendientes() > 0) {
+        <span class="filtro-contador filtro-contador--alerta">{{ totalPendientes() }}</span>
+      }
+    </button>
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroEstado() === 'INACTIVO'"
+      (click)="setFiltro('INACTIVO')"
+    >
+      Inactivos
+      @if (totalInactivos() > 0) {
+        <span class="filtro-contador filtro-contador--alerta">{{ totalInactivos() }}</span>
+      }
+    </button>
+  </div>
+
+  @if (error()) {
+    <div class="alerta-error">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="estado-carga">
+      <div class="spinner"></div>
+      <span>Cargando clientes...</span>
+    </div>
+  }
+
+  @if (!cargando()) {
+    <div class="tabla-contenedor">
+      @if (clientesFiltrados().length === 0) {
+        <div class="sin-datos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <p>No hay clientes para mostrar.</p>
+          @if (filtroEstado() === 'TODOS') {
+            <button class="btn-secundario" (click)="abrirFormularioNuevo()">
+              Agregar el primer cliente
+            </button>
+          }
+        </div>
+      } @else {
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Nº Cuenta</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cliente of clientesFiltrados(); track cliente.idUsuario) {
+              <tr [class.fila--pendiente]="cliente.estado === 'PENDIENTE'">
+                <td class="celda-titulo">{{ cliente.nombre }}</td>
+                <td class="celda-secundario">{{ cliente.email }}</td>
+                <td>
+                  <span class="numero-cuenta">{{ cliente.numeroCuenta }}</span>
+                </td>
+                <td>
+                  <span class="estado-etiqueta" [class]="claseEstado(cliente.estado)">
+                    {{ cliente.estado }}
+                  </span>
+                </td>
+                <td>
+                  <div class="acciones">
+
+                    <!-- Activar (si está PENDIENTE o INACTIVO) -->
+                    @if (cliente.estado !== 'ACTIVO') {
+                      <button
+                        class="btn-accion btn-accion--activar"
+                        (click)="activar(cliente)"
+                        [disabled]="cambiandoEstado() === cliente.idUsuario"
+                        title="Activar"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                      </button>
+                    }
+
+                    <!-- Inactivar (si está ACTIVO) -->
+                    @if (cliente.estado === 'ACTIVO') {
+                      <button
+                        class="btn-accion btn-accion--inactivar"
+                        (click)="inactivar(cliente)"
+                        [disabled]="cambiandoEstado() === cliente.idUsuario"
+                        title="Inactivar"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10"/>
+                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                        </svg>
+                      </button>
+                    }
+
+                    <!-- Editar -->
+                    <button
+                      class="btn-accion btn-accion--editar"
+                      (click)="abrirFormularioEdicion(cliente)"
+                      title="Editar"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                      </svg>
+                    </button>
+
+                    <!-- Eliminar -->
+                    <button
+                      class="btn-accion btn-accion--eliminar"
+                      (click)="confirmarEliminacion(cliente)"
+                      title="Eliminar"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                        <path d="M10 11v6M14 11v6"/>
+                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                      </svg>
+                    </button>
+
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+
+  @if (formularioAbierto()) {
+    <div class="overlay" (click)="cerrarFormulario()"></div>
+    <app-cliente-form
+      [cliente]="clienteEditando()"
+      (alCerrar)="cerrarFormulario()"
+      (alGuardar)="alGuardar()"
+    />
+  }
+
+  @if (clienteAEliminar()) {
+    <div class="overlay">
+      <div class="dialogo">
+        <h3>Eliminar cliente</h3>
+        <p>
+          ¿Estás segura de que querés eliminar a
+          <strong>{{ clienteAEliminar()!.nombre }}</strong>?
+          Esta acción no se puede deshacer.
+        </p>
+        <div class="dialogo-acciones">
+          <button class="btn-secundario" (click)="cancelarEliminacion()">Cancelar</button>
+          <button class="btn-peligro" (click)="ejecutarEliminacion()" [disabled]="eliminando()">
+            @if (eliminando()) { Eliminando... } @else { Eliminar }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
