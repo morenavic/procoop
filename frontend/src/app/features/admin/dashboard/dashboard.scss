@@ -1,0 +1,264 @@
+// ============================================================
+// Dashboard del administrador
+// ============================================================
+
+.dashboard {
+  max-width: 1100px;
+}
+
+.dashboard-encabezado {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-texto);
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    margin: 0;
+  }
+}
+
+// --- Estados ---
+
+.estado-carga {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-texto-secundario);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+
+.spinner-grande {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-borde);
+  border-top-color: var(--color-primario);
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+.estado-error {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  background: #fff3f3;
+  border: 1px solid #fcc;
+  border-radius: var(--radio-borde);
+  color: #c0392b;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    stroke-width: 2;
+  }
+}
+
+// --- Métricas ---
+
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metrica-card {
+  background: #fff;
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--sombra-suave);
+  border-left: 4px solid transparent;
+
+  &--azul {
+    border-left-color: var(--color-primario);
+
+    .metrica-icono {
+      background: var(--color-secundario);
+      color: var(--color-primario);
+    }
+  }
+
+  &--verde {
+    border-left-color: var(--color-exito);
+
+    .metrica-icono {
+      background: #f0fdf4;
+      color: var(--color-exito);
+    }
+  }
+
+  &--naranja {
+    border-left-color: var(--color-advertencia);
+
+    .metrica-icono {
+      background: #fffbeb;
+      color: var(--color-advertencia);
+    }
+  }
+}
+
+.metrica-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+  }
+}
+
+.metrica-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metrica-valor {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  line-height: 1;
+}
+
+.metrica-etiqueta {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+  margin-top: 0.25rem;
+}
+
+// --- Actividades recientes ---
+
+.actividades {
+  background: #fff;
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-suave);
+  overflow: hidden;
+}
+
+.seccion-titulo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-texto);
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-borde);
+  margin: 0;
+}
+
+.sin-datos {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1.5rem;
+  color: var(--color-texto-secundario);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
+  }
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+
+  thead tr {
+    background: var(--color-fondo-suave);
+
+    th {
+      text-align: left;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      color: var(--color-texto-secundario);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--color-borde);
+    transition: background 0.15s;
+
+    &:hover {
+      background: var(--color-fondo-suave);
+    }
+
+    td {
+      padding: 0.85rem 1.5rem;
+      color: var(--color-texto);
+      vertical-align: middle;
+    }
+  }
+}
+
+.celda-titulo {
+  font-weight: 500;
+}
+
+.celda-detalle {
+  color: var(--color-texto-secundario) !important;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// --- Etiquetas de tipo ---
+
+.etiqueta {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &--novedad   { background: #eff6ff; color: #1d4ed8; }
+  &--producto  { background: #f0fdf4; color: #15803d; }
+  &--servicio  { background: #fdf4ff; color: #7e22ce; }
+  &--documento { background: #fff7ed; color: #c2410c; }
+  &--cliente   { background: #f0f9ff; color: #0369a1; }
+  &--default   { background: var(--color-fondo-suave); color: var(--color-texto-secundario); }
+}

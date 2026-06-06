@@ -1,0 +1,255 @@
+// ============================================================
+// Admin Layout — sidebar fijo + área de contenido
+// Paleta institucional Procoop
+// ============================================================
+
+$sidebar-ancho: 240px;
+$sidebar-ancho-colapsado: 0px;
+$topbar-alto: 60px;
+
+.admin-contenedor {
+  display: grid;
+  grid-template-columns: $sidebar-ancho 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns 0.25s ease;
+
+  &.sidebar-colapsado {
+    grid-template-columns: $sidebar-ancho-colapsado 1fr;
+
+    .sidebar {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+// --- Sidebar ---
+
+.sidebar {
+  background: var(--color-primario);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+  z-index: 100;
+}
+
+.sidebar-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-logo-icono {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.sidebar-logo-nombre {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+// --- Navegación ---
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &.activo {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-weight: 500;
+
+    .nav-icono svg {
+      stroke: #fff;
+    }
+  }
+}
+
+.nav-icono {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+    stroke: rgba(255, 255, 255, 0.75);
+    transition: stroke 0.15s;
+  }
+}
+
+.nav-etiqueta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// --- Pie del sidebar ---
+
+.sidebar-pie {
+  padding: 1rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-salir {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+}
+
+// --- Área principal ---
+
+.admin-principal {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-fondo-suave);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+// --- Topbar ---
+
+.topbar {
+  height: $topbar-alto;
+  background: #fff;
+  border-bottom: 1px solid var(--color-borde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 6px;
+  color: var(--color-texto-secundario);
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+  }
+
+  &:hover {
+    background: var(--color-fondo-suave);
+  }
+}
+
+.topbar-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.topbar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-primario);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.topbar-nombre {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-texto);
+  font-weight: 500;
+}
+
+// --- Contenido ---
+
+.admin-contenido {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+// --- Responsive ---
+
+@media (max-width: 768px) {
+  .admin-contenedor {
+    grid-template-columns: 1fr;
+
+    &.sidebar-colapsado .sidebar {
+      transform: translateX(-100%);
+    }
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+  }
+}

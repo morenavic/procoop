@@ -1,0 +1,101 @@
+<aside class="panel-formulario">
+
+  <div class="panel-encabezado">
+    <h2>{{ titulo }}</h2>
+    <button class="btn-cerrar" (click)="alCerrar.emit()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="panel-cuerpo">
+
+    @if (error()) {
+      <div class="alerta-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+
+      <!-- Nombre -->
+      <div class="campo" [class.campo--error]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched">
+        <label>Nombre *</label>
+        <input type="text" formControlName="nombre" placeholder="Nombre del documento"/>
+        @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+          <span class="campo-error">El nombre es obligatorio</span>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="campo">
+        <label>Descripción <span class="opcional">(opcional)</span></label>
+        <textarea formControlName="descripcion" rows="3" placeholder="Breve descripción del documento"></textarea>
+      </div>
+
+      <!-- Archivo -->
+      <div class="campo">
+        <label>
+          Archivo
+          @if (!esEdicion) { <span class="requerido">*</span> }
+          @if (esEdicion) { <span class="opcional">(opcional — reemplaza el actual)</span> }
+        </label>
+
+        @if (esEdicion && !archivoSeleccionado() && nombreArchivoActual) {
+          <div class="archivo-actual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Archivo actual guardado</span>
+          </div>
+        }
+
+        @if (archivoSeleccionado()) {
+          <div class="archivo-seleccionado">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>{{ archivoSeleccionado()!.name }}</span>
+            <button
+              type="button"
+              class="btn-quitar"
+              (click)="quitarArchivo()"
+              aria-label="Quitar archivo"
+              title="Quitar archivo"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        } @else {
+          <label class="upload-area" for="archivo-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span>Hacé click para seleccionar un archivo</span>
+            <small>PDF, Word o Excel — máx. 20MB</small>
+            <input
+              id="archivo-input"
+              type="file"
+              accept=".pdf,.doc,.docx,.xls,.xlsx"
+              (change)="alSeleccionarArchivo($event)"
+              class="oculto"
+            />
+          </label>
+        }
+      </div>
+
+      <div class="panel-acciones">
+        <button type="button" class="btn-secundario" (click)="alCerrar.emit()">Cancelar</button>
+        <button type="submit" class="btn-primario" [disabled]="cargando()">
+          @if (cargando()) { Guardando... } @else { Guardar }
+        </button>
+      </div>
+
+    </form>
+  </div>
+</aside>
