@@ -8,12 +8,16 @@ import { Routes } from '@angular/router';
 export const adminRoutes: Routes = [
   {
     path: 'inicio',
+    loadComponent: () => import('./dashboard/dashboard').then((m) => m.DashboardComponent),
+  },
+  {
+    path: 'novedades',
     loadComponent: () =>
-      import('./dashboard/dashboard').then(m => m.DashboardComponent)
+      import('./novedades/novedades').then((m) => m.NovedadesComponent),
   },
   {
     path: '',
     redirectTo: 'inicio',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
