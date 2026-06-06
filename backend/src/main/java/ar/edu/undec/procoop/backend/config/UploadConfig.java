@@ -35,6 +35,7 @@ public class UploadConfig implements WebMvcConfigurer {
     public void crearDirectorios() throws IOException {
         Files.createDirectories(Paths.get(uploadsDir, "novedades"));
         Files.createDirectories(Paths.get(uploadsDir, "productos"));
+        Files.createDirectories(Paths.get(uploadsDir, "documentos"));
     }
 
     /**

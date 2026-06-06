@@ -27,6 +27,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./clientes/clientes').then((m) => m.ClientesComponent),
   },
   {
+    path: 'documentos',
+    loadComponent: () =>
+      import('./documentos/documentos').then((m) => m.DocumentosComponent),
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full',
