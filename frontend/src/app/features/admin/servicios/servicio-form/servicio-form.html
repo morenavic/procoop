@@ -1,0 +1,48 @@
+<aside class="panel-formulario">
+
+  <div class="panel-encabezado">
+    <h2>{{ titulo }}</h2>
+    <button class="btn-cerrar" (click)="alCerrar.emit()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="panel-cuerpo">
+
+    @if (error()) {
+      <div class="alerta-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+
+      <!-- Título -->
+      <div class="campo" [class.campo--error]="formulario.get('titulo')?.invalid && formulario.get('titulo')?.touched">
+        <label>Título *</label>
+        <input type="text" formControlName="titulo" placeholder="Nombre del servicio"/>
+        @if (formulario.get('titulo')?.invalid && formulario.get('titulo')?.touched) {
+          <span class="campo-error">El título es obligatorio</span>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="campo" [class.campo--error]="formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched">
+        <label>Descripción *</label>
+        <textarea formControlName="descripcion" rows="6" placeholder="Descripción detallada del servicio"></textarea>
+        @if (formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched) {
+          <span class="campo-error">La descripción es obligatoria</span>
+        }
+      </div>
+
+      <div class="panel-acciones">
+        <button type="button" class="btn-secundario" (click)="alCerrar.emit()">Cancelar</button>
+        <button type="submit" class="btn-primario" [disabled]="cargando()">
+          @if (cargando()) { Guardando... } @else { Guardar }
+        </button>
+      </div>
+
+    </form>
+  </div>
+</aside>

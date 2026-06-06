@@ -20,9 +20,6 @@ public class Producto {
     @Column(name = "id_producto")
     private Integer idProducto;
 
-    @Column(name = "slug", nullable = false, unique = true, length = 200)
-    private String slug;
-
     @Column(name = "titulo", nullable = false, length = 200)
     private String titulo;
 

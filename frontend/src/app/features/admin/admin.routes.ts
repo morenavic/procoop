@@ -12,8 +12,17 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'novedades',
+    loadComponent: () => import('./novedades/novedades').then((m) => m.NovedadesComponent),
+  },
+  {
+    path: 'productos',
     loadComponent: () =>
-      import('./novedades/novedades').then((m) => m.NovedadesComponent),
+      import('./productos/productos').then((m) => m.ProductosComponent),
+  },
+  {
+    path: 'servicios',
+    loadComponent: () =>
+      import('./servicios/servicios').then((m) => m.ServiciosComponent),
   },
   {
     path: '',
