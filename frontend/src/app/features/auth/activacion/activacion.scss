@@ -1,7 +1,5 @@
 // ============================================================
-// Login — diseño de dos paneles
-// Panel izquierdo: marca con fondo azul institucional
-// Panel derecho: formulario limpio sobre blanco
+// Activación de cuenta — mismo layout que Login
 // ============================================================
 
 .login-contenedor {
@@ -14,8 +12,6 @@
   }
 }
 
-// --- Panel de marca ---
-
 .login-marca {
   background: var(--color-primario);
   display: flex;
@@ -24,9 +20,7 @@
   position: relative;
   overflow: hidden;
 
-  @media (max-width: 768px) {
-    display: none;
-  }
+  @media (max-width: 768px) { display: none; }
 }
 
 .marca-contenido {
@@ -66,7 +60,6 @@
   margin: 0;
 }
 
-// Círculos decorativos de fondo
 .marca-decoracion {
   position: absolute;
   inset: 0;
@@ -79,29 +72,9 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.circulo-1 {
-  width: 300px;
-  height: 300px;
-  top: -80px;
-  right: -80px;
-}
-
-.circulo-2 {
-  width: 200px;
-  height: 200px;
-  bottom: 60px;
-  left: -60px;
-}
-
-.circulo-3 {
-  width: 150px;
-  height: 150px;
-  bottom: -40px;
-  right: 40px;
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-// --- Panel del formulario ---
+.circulo-1 { width: 300px; height: 300px; top: -80px; right: -80px; }
+.circulo-2 { width: 200px; height: 200px; bottom: 60px; left: -60px; }
+.circulo-3 { width: 150px; height: 150px; bottom: -40px; right: 40px; border-color: rgba(255,255,255,0.06); }
 
 .login-formulario-panel {
   background: #fff;
@@ -113,11 +86,11 @@
 
 .formulario-contenedor {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
 }
 
 .formulario-encabezado {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 
   h1 {
     font-family: 'Poppins', sans-serif;
@@ -129,16 +102,15 @@
 
   p {
     font-family: 'Roboto', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--color-texto-secundario);
     margin: 0;
+    line-height: 1.5;
   }
 }
 
-// --- Campos del formulario ---
-
 .campo {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.1rem;
 
   label {
     display: block;
@@ -168,9 +140,7 @@
     outline: none;
     box-sizing: border-box;
 
-    &::placeholder {
-      color: #bbb;
-    }
+    &::placeholder { color: #bbb; }
 
     &:focus {
       border-color: var(--color-primario);
@@ -206,15 +176,8 @@
   color: #aaa;
   transition: color 0.2s;
 
-  svg {
-    width: 18px;
-    height: 18px;
-    stroke-width: 1.8;
-  }
-
-  &:hover {
-    color: var(--color-primario);
-  }
+  svg { width: 18px; height: 18px; stroke-width: 1.8; }
+  &:hover { color: var(--color-primario); }
 }
 
 .campo-error {
@@ -224,8 +187,6 @@
   font-size: 0.8rem;
   color: var(--color-error);
 }
-
-// --- Alerta de error del servidor ---
 
 .alerta-error {
   display: flex;
@@ -240,15 +201,8 @@
   font-size: 0.875rem;
   color: #c0392b;
 
-  svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    stroke-width: 2;
-  }
+  svg { width: 16px; height: 16px; flex-shrink: 0; stroke-width: 2; }
 }
-
-// --- Botón principal ---
 
 .btn-primario {
   width: 100%;
@@ -265,49 +219,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s;
   margin-top: 0.5rem;
 
-  &:hover:not(:disabled) {
-    background: #003d80;
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.99);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+  &:hover:not(:disabled) { background: #003d80; }
+  &:disabled { opacity: 0.7; cursor: not-allowed; }
 }
-
-// --- Botón secundario ---
-
-.links-acceso {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.btn-secundario-link {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  background: #fff;
-  color: var(--color-primario);
-  border: 1.5px solid var(--color-primario);
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:hover { background: var(--color-secundario); }
-}
-
-// --- Spinner de carga ---
 
 .spinner {
   width: 16px;
@@ -318,6 +235,60 @@
   animation: girar 0.7s linear infinite;
 }
 
-@keyframes girar {
-  to { transform: rotate(360deg); }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.link-login {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-texto-secundario);
+
+  a {
+    color: var(--color-primario);
+    font-weight: 500;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// --- Estado exitoso ---
+
+.estado-exitoso {
+  text-align: center;
+  padding: 2rem 0;
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 1rem 0 0.5rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    line-height: 1.6;
+  }
+}
+
+.exito-icono {
+  width: 64px;
+  height: 64px;
+  background: #f0fdf4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 2px solid #86efac;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    stroke: #16a34a;
+    stroke-width: 2.5;
+  }
 }

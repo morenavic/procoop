@@ -6,12 +6,16 @@ import { Routes } from '@angular/router';
 export const authRoutes: Routes = [
   {
     path: 'login',
+    loadComponent: () => import('./login/login').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'activar',
     loadComponent: () =>
-      import('./login/login').then(m => m.LoginComponent)
+      import('./activacion/activacion').then((m) => m.ActivacionComponent),
   },
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
