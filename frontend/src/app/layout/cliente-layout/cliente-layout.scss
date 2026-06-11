@@ -1,0 +1,243 @@
+// ============================================================
+// Layout del cliente — topbar fijo + sidebar hamburguesa
+// ============================================================
+
+$topbar-alto: 60px;
+$sidebar-ancho: 280px;
+
+.cliente-contenedor {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-fondo-suave);
+}
+
+// --- Topbar ---
+
+.topbar {
+  height: $topbar-alto;
+  background: var(--color-primario);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-izquierda {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-hamburguesa {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+
+  svg { width: 22px; height: 22px; stroke-width: 2; }
+  &:hover { background: rgba(255,255,255,0.15); }
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icono {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.logo-nombre {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.topbar-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.usuario-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.usuario-nombre {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #fff;
+  font-weight: 500;
+
+  @media (max-width: 400px) { display: none; }
+}
+
+// --- Overlay ---
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+}
+
+// --- Sidebar ---
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-ancho;
+  background: var(--color-primario);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+
+  &.abierto {
+    transform: translateX(0);
+  }
+}
+
+.sidebar-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  height: $topbar-alto;
+  box-sizing: border-box;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-cerrar-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  transition: background 0.15s;
+
+  svg { width: 20px; height: 20px; stroke-width: 2; }
+  &:hover { background: rgba(255,255,255,0.15); }
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.75);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+
+  &.activo {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-weight: 500;
+  }
+}
+
+.nav-icono {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+    stroke: rgba(255,255,255,0.75);
+    transition: stroke 0.15s;
+  }
+}
+
+.sidebar-nav-item.activo .nav-icono svg,
+.sidebar-nav-item:hover .nav-icono svg {
+  stroke: #fff;
+}
+
+.sidebar-pie {
+  padding: 1rem 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-salir {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  svg { width: 18px; height: 18px; stroke-width: 1.8; flex-shrink: 0; }
+  &:hover { background: rgba(255,255,255,0.1); color: #fff; }
+}
+
+// --- Contenido ---
+
+.cliente-contenido {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}

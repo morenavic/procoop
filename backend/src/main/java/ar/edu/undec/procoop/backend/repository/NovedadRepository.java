@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface NovedadRepository extends JpaRepository<Novedad, Integer> {
     List<Novedad> findTop5ByOrderByFechaDesc();
+    List<Novedad> findByTipoOrderByFechaDesc(String tipo);
 }
