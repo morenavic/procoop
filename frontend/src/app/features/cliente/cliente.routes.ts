@@ -14,6 +14,17 @@ export const clienteRoutes: Routes = [
     loadComponent: () => import('./eventos/eventos').then((m) => m.EventosComponent),
   },
   {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil').then((m) => m.PerfilComponent),
+  },
+  {
+    path: 'cambiar-contrasenia',
+    loadComponent: () =>
+      import('./cambiar-contrasenia/cambiar-contrasenia').then(
+        (m) => m.CambiarContraseniaComponent,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full',

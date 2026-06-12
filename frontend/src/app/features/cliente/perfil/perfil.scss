@@ -1,0 +1,219 @@
+// ============================================================
+// Mi Perfil del cliente
+// ============================================================
+
+.perfil {
+  padding-bottom: 2rem;
+  max-width: 600px;
+}
+
+.perfil-encabezado {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    margin: 0;
+  }
+}
+
+.estado-carga {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-texto-secundario);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-borde);
+  border-top-color: var(--color-primario);
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.alerta-error {
+  padding: 0.75rem 1rem;
+  background: #fff3f3;
+  border: 1px solid #fcc;
+  border-radius: var(--radio-borde);
+  color: var(--color-error);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+// --- Contenido del perfil ---
+
+.perfil-contenido {
+  background: #fff;
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-suave);
+  overflow: hidden;
+}
+
+// --- Foto de perfil ---
+
+.foto-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-borde);
+  background: var(--color-fondo-suave);
+}
+
+.foto-contenedor {
+  position: relative;
+  display: inline-block;
+}
+
+.foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: var(--sombra-suave);
+}
+
+.foto-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-primario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #fff;
+  box-shadow: var(--sombra-suave);
+
+  span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+}
+
+.btn-cambiar-foto {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 30px;
+  height: 30px;
+  background: var(--color-primario);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #fff;
+  transition: background 0.2s;
+  color: #fff;
+
+  svg { flex-shrink: 0; }
+  &:hover { background: var(--color-primario-oscuro); }
+  &.cargando { cursor: not-allowed; opacity: 0.8; }
+}
+
+.spinner-foto {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+.exito-foto {
+  margin-top: 0.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-exito);
+  font-weight: 500;
+}
+
+// --- Datos ---
+
+.datos-seccion {
+  padding: 1.5rem;
+}
+
+.dato-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dato-etiqueta {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dato-valor {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: var(--color-texto);
+
+  &--cuenta {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    background: var(--color-fondo-suave);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-borde);
+    display: inline-block;
+  }
+}
+
+.perfil-acciones {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-borde);
+}
+
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  background: var(--color-primario);
+  color: #fff;
+  border: none;
+  border-radius: var(--radio-borde);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover { background: var(--color-primario-oscuro); }
+}
