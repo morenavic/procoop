@@ -164,7 +164,9 @@
     font-size: 0.95rem;
     color: var(--color-texto);
     background: var(--color-fondo-suave);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
     outline: none;
     box-sizing: border-box;
 
@@ -265,7 +267,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   margin-top: 0.5rem;
 
   &:hover:not(:disabled) {
@@ -304,7 +308,26 @@
   width: 100%;
   box-sizing: border-box;
 
-  &:hover { background: var(--color-secundario); }
+  &:hover {
+    background: var(--color-secundario);
+  }
+}
+
+// --- Botón de recuperar contraseña ---
+
+.link-recuperar {
+  display: block;
+  text-align: center;
+  margin-top: 0.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-texto-secundario);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-primario);
+  }
 }
 
 // --- Spinner de carga ---
@@ -319,5 +342,7 @@
 }
 
 @keyframes girar {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

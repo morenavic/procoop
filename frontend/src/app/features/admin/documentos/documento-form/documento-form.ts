@@ -53,6 +53,7 @@ export class DocumentoFormComponent implements OnInit {
     this.formulario = this.fb.group({
       nombre: [this.documento?.nombre ?? '', [Validators.required, Validators.maxLength(200)]],
       descripcion: [this.documento?.descripcion ?? '', []],
+      tipo: [this.documento?.tipo ?? '', [Validators.required]],
     });
   }
 

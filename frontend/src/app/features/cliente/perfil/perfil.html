@@ -1,0 +1,88 @@
+<div class="perfil">
+
+  <header class="perfil-encabezado">
+    <h1>Mi Perfil</h1>
+    <p>Tu información personal</p>
+  </header>
+
+  @if (cargando()) {
+    <div class="estado-carga">
+      <div class="spinner"></div>
+      <span>Cargando perfil...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alerta-error">{{ error() }}</div>
+  }
+
+  @if (!cargando() && perfil()) {
+    <div class="perfil-contenido">
+
+      <!-- Foto de perfil -->
+      <div class="foto-seccion">
+        <div class="foto-contenedor">
+          @if (perfil()!.imagenUrl) {
+            <img [src]="perfil()!.imagenUrl" alt="Foto de perfil" class="foto"/>
+          } @else {
+            <div class="foto-placeholder">
+              <span>{{ perfil()!.nombre.charAt(0).toUpperCase() }}</span>
+            </div>
+          }
+
+          <label class="btn-cambiar-foto" for="foto-input" [class.cargando]="subiendoFoto()">
+            @if (subiendoFoto()) {
+              <div class="spinner-foto"></div>
+            } @else {
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            }
+            <input
+              id="foto-input"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              (change)="alSeleccionarFoto($event)"
+              style="display:none"
+            />
+          </label>
+        </div>
+
+        @if (exitoFoto()) {
+          <p class="exito-foto">Foto actualizada correctamente</p>
+        }
+      </div>
+
+      <!-- Datos del perfil -->
+      <div class="datos-seccion">
+        <div class="dato-grupo">
+          <div class="dato">
+            <span class="dato-etiqueta">Nombre</span>
+            <span class="dato-valor">{{ perfil()!.nombre }}</span>
+          </div>
+          <div class="dato">
+            <span class="dato-etiqueta">Correo electrónico</span>
+            <span class="dato-valor">{{ perfil()!.email }}</span>
+          </div>
+          <div class="dato">
+            <span class="dato-etiqueta">Número de cuenta</span>
+            <span class="dato-valor dato-valor--cuenta">{{ perfil()!.numeroCuenta }}</span>
+          </div>
+        </div>
+
+        <div class="perfil-acciones">
+          <a routerLink="/cliente/cambiar-contrasenia" class="btn-primario">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Cambiar contraseña
+          </a>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>

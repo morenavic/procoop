@@ -16,13 +16,9 @@ import java.util.List;
  * Servicio de gestión de documentos.
  *
  * Responsabilidades:
- *  - CRUD completo de documentos
+ *  - CRUD completo de documentos (admin)
+ *  - Búsqueda por nombre y filtrado por tipo (cliente)
  *  - Delegación del manejo de archivos al ArchivoService
- *
- * Reglas de negocio:
- *  - El archivo es obligatorio al crear
- *  - Al editar sin nuevo archivo, se conserva el existente
- *  - Al eliminar un documento, se elimina también su archivo del disco
  */
 @Service
 @RequiredArgsConstructor
@@ -33,6 +29,20 @@ public class DocumentoService {
 
     public List<DocumentoResponseDTO> listar() {
         return documentoRepository.findAll()
+                .stream()
+                .map(this::mapearAResponse)
+                .toList();
+    }
+
+    public List<DocumentoResponseDTO> buscarPorNombre(String nombre) {
+        return documentoRepository.findByNombreContainingIgnoreCase(nombre)
+                .stream()
+                .map(this::mapearAResponse)
+                .toList();
+    }
+
+    public List<DocumentoResponseDTO> filtrarPorTipo(String tipo) {
+        return documentoRepository.findByTipo(tipo)
                 .stream()
                 .map(this::mapearAResponse)
                 .toList();
@@ -50,6 +60,7 @@ public class DocumentoService {
         Documento documento = new Documento();
         documento.setNombre(dto.getNombre());
         documento.setDescripcion(dto.getDescripcion());
+        documento.setTipo(dto.getTipo());
         documento.setArchivo(archivoService.guardarDocumento(archivo, "documentos"));
 
         return mapearAResponse(documentoRepository.save(documento));
@@ -59,6 +70,7 @@ public class DocumentoService {
         Documento documento = buscarPorId(id);
         documento.setNombre(dto.getNombre());
         documento.setDescripcion(dto.getDescripcion());
+        documento.setTipo(dto.getTipo());
 
         if (archivo != null && !archivo.isEmpty()) {
             archivoService.eliminar(documento.getArchivo());
@@ -89,6 +101,7 @@ public class DocumentoService {
                 documento.getIdDocumento(),
                 documento.getNombre(),
                 documento.getDescripcion(),
+                documento.getTipo(),
                 archivoUrl
         );
     }

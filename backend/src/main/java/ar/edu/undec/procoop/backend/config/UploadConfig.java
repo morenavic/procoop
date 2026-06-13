@@ -36,6 +36,7 @@ public class UploadConfig implements WebMvcConfigurer {
         Files.createDirectories(Paths.get(uploadsDir, "novedades"));
         Files.createDirectories(Paths.get(uploadsDir, "productos"));
         Files.createDirectories(Paths.get(uploadsDir, "documentos"));
+        Files.createDirectories(Paths.get(uploadsDir, "perfiles"));
     }
 
     /**

@@ -1,0 +1,202 @@
+// ============================================================
+// Cambiar contraseña del cliente
+// ============================================================
+
+.cambiar-contrasenia {
+  padding-bottom: 2rem;
+  max-width: 500px;
+}
+
+.encabezado {
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    margin: 0;
+  }
+}
+
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-primario);
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: opacity 0.15s;
+  margin-bottom: 0.5rem;
+
+  &:hover { opacity: 0.75; }
+}
+
+.formulario-contenedor {
+  background: #fff;
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-suave);
+  padding: 1.5rem;
+}
+
+.alerta-exito {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: var(--radio-borde);
+  color: #15803d;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.alerta-error {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: #fff3f3;
+  border: 1px solid #fcc;
+  border-radius: var(--radio-borde);
+  color: var(--color-error);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.campo {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-texto);
+    margin-bottom: 0.4rem;
+  }
+}
+
+.campo-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    padding: 0.75rem 2.75rem 0.75rem 0.9rem;
+    border: 1.5px solid var(--color-borde);
+    border-radius: var(--radio-borde);
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-texto);
+    background: var(--color-fondo-suave);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(0, 82, 166, 0.1);
+      background: #fff;
+    }
+
+    &::placeholder { color: #bbb; }
+  }
+}
+
+.campo--error .campo-input-wrapper input {
+  border-color: var(--color-error);
+}
+
+.toggle-visibilidad {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #aaa;
+  transition: color 0.2s;
+
+  &:hover { color: var(--color-primario); }
+}
+
+.campo-error {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--color-error);
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-acciones {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-borde);
+}
+
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--color-primario);
+  color: #fff;
+  border: none;
+  border-radius: var(--radio-borde);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) { background: var(--color-primario-oscuro); }
+  &:disabled { opacity: 0.7; cursor: not-allowed; }
+}
+
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.25rem;
+  background: #fff;
+  color: var(--color-primario);
+  border: 1.5px solid var(--color-primario);
+  border-radius: var(--radio-borde);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover { background: var(--color-secundario); }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }

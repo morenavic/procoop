@@ -1,0 +1,52 @@
+<div class="listado">
+
+  <header class="listado-encabezado">
+    <a routerLink="/cliente/inicio" class="btn-volver">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Volver
+    </a>
+    <h1>Noticias</h1>
+  </header>
+
+  @if (cargando()) {
+    <div class="estado-carga">
+      <div class="spinner"></div>
+      <span>Cargando noticias...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alerta-error">{{ error() }}</div>
+  }
+
+  @if (!cargando() && !error()) {
+    @if (noticias().length === 0) {
+      <div class="sin-datos">No hay noticias disponibles.</div>
+    } @else {
+      <div class="tarjetas">
+        @for (noticia of noticias(); track noticia.idNovedad) {
+          <article class="tarjeta">
+            @if (noticia.imagenUrl) {
+              <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" class="tarjeta-imagen"/>
+            } @else {
+              <div class="tarjeta-imagen-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              </div>
+            }
+            <div class="tarjeta-cuerpo">
+              <span class="tarjeta-fecha">{{ noticia.fecha | date:'dd/MM/yyyy' }}</span>
+              <h3 class="tarjeta-titulo">{{ noticia.titulo }}</h3>
+              <p class="tarjeta-descripcion">{{ noticia.descripcion }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  }
+
+</div>

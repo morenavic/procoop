@@ -90,6 +90,13 @@ public class NovedadService {
         novedad.setTipo(dto.getTipo());
     }
 
+    public List<NovedadResponseDTO> listarPorTipo(String tipo) {
+        return novedadRepository.findByTipoOrderByFechaDesc(tipo)
+                .stream()
+                .map(this::mapearAResponse)
+                .toList();
+    }
+
     /**
      * Construye la URL absoluta de la imagen para que el frontend pueda mostrarla.
      * Si no hay imagen, devuelve null.

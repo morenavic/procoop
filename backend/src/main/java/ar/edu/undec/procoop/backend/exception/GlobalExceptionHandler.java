@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<Map<String, Object>> manejarAppException(AppException ex) {
-        return construirRespuesta(ex.getMensaje(), ex.getEstado());
+        return construirRespuesta(ex.getMessage(), ex.getEstado());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
