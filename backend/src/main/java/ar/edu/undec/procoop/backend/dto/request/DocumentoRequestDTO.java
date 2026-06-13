@@ -1,6 +1,7 @@
 package ar.edu.undec.procoop.backend.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +17,8 @@ public class DocumentoRequestDTO {
     private String nombre;
 
     private String descripcion;
+
+    @NotBlank(message = "El tipo es obligatorio")
+    @Pattern(regexp = "MANUAL|GUIA|OTRO", message = "El tipo debe ser MANUAL, GUIA u OTRO")
+    private String tipo;
 }

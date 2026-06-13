@@ -25,6 +25,13 @@ export const clienteRoutes: Routes = [
       ),
   },
   {
+    path: 'documentos',
+    loadComponent: () =>
+      import('./documentos-cliente/documentos-cliente').then(
+        (m) => m.DocumentosClienteComponent,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full',

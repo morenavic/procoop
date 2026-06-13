@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface DocumentoRepository extends JpaRepository<Documento, Integer> {
     List<Documento> findTop5ByOrderByIdDocumentoDesc();
+    List<Documento> findByNombreContainingIgnoreCase(String nombre);
+    List<Documento> findByTipo(String tipo);
 }

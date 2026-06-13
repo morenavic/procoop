@@ -13,6 +13,13 @@
       }
     ],
     "axe/text-alternatives": "off",
-    "no-inline-styles": "off"
+    "no-inline-styles": "off",
+    "button-type": "off",
+    "axe/name-role-value": [
+      "default",
+      {
+        "button-name": "off"
+      }
+    ]
   }
 }

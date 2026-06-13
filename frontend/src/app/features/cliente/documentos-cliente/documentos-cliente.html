@@ -1,0 +1,103 @@
+<div class="documentos">
+
+  <header class="documentos-encabezado">
+    <h1>Documentos</h1>
+    <p>Documentos disponibles para descargar</p>
+  </header>
+
+  <!-- Buscador -->
+  <div class="buscador">
+    <div class="buscador-input">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        placeholder="Buscar documentos..."
+        (keyup.enter)="alBuscar()"
+      />
+      @if (busqueda) {
+        <button class="btn-limpiar" (click)="limpiarBusqueda()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      }
+    </div>
+    <button class="btn-buscar" (click)="alBuscar()">Buscar</button>
+  </div>
+
+  <!-- Filtros por tipo -->
+  <div class="filtros">
+    @for (filtro of filtros; track filtro.valor) {
+      <button
+        class="filtro-btn"
+        [class.activo]="filtroTipo === filtro.valor"
+        (click)="setFiltro(filtro.valor)"
+      >
+        {{ filtro.etiqueta }}
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <div class="alerta-error">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="estado-carga">
+      <div class="spinner"></div>
+      <span>Cargando documentos...</span>
+    </div>
+  }
+
+  @if (!cargando() && !error()) {
+    @if (documentos().length === 0) {
+      <div class="sin-datos">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>No se encontraron documentos.</p>
+      </div>
+    } @else {
+      <div class="lista-documentos">
+        @for (documento of documentos(); track documento.idDocumento) {
+          <div class="documento-item">
+            <div class="documento-icono">
+              <span class="ext-badge" [class]="claseExtension(documento.archivoUrl)">
+                {{ obtenerExtension(documento.archivoUrl) }}
+              </span>
+            </div>
+            <div class="documento-info">
+              <div class="documento-cabecera">
+                <h3 class="documento-nombre">{{ documento.nombre }}</h3>
+                <span class="documento-tipo" [class]="claseTipo(documento.tipo)">
+                  {{ etiquetaTipo(documento.tipo) }}
+                </span>
+              </div>
+              @if (documento.descripcion) {
+                <p class="documento-descripcion">{{ documento.descripcion }}</p>
+              }
+            </div>
+            <button
+              class="btn-descargar"
+              (click)="descargar(documento)"
+              title="Descargar"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Descargar
+            </button>
+          </div>
+        }
+      </div>
+    }
+  }
+
+</div>
