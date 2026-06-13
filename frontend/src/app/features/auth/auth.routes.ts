@@ -10,8 +10,17 @@ export const authRoutes: Routes = [
   },
   {
     path: 'activar',
+    loadComponent: () => import('./activacion/activacion').then((m) => m.ActivacionComponent),
+  },
+  {
+    path: 'recuperar',
     loadComponent: () =>
-      import('./activacion/activacion').then((m) => m.ActivacionComponent),
+      import('./recuperar/recuperar').then((m) => m.RecuperarComponent),
+  },
+  {
+    path: 'restablecer',
+    loadComponent: () =>
+      import('./restablecer/restablecer').then((m) => m.RestablecerComponent),
   },
   {
     path: '',

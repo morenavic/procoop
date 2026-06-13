@@ -27,6 +27,18 @@ spring:
     resources:
       static-locations: file:${UPLOADS_DIR:uploads/}
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:morevg.996@gmail.com}
+    password: ${MAIL_PASSWORD:xkco llry ltbv qnvf}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 server:
   port: ${PORT:8080}
 
