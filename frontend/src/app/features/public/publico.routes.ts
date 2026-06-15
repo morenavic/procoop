@@ -23,7 +23,8 @@ export const publicoRoutes: Routes = [
       },
       {
         path: 'servicios',
-        loadComponent: () => import('./servicios/servicios').then((m) => m.Servicios),
+        loadComponent: () =>
+          import('./servicios/servicios').then((m) => m.ServiciosPublicoComponent),
       },
       {
         path: 'contacto',

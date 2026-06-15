@@ -1,0 +1,243 @@
+// ============================================================
+// Servicios públicos — CU05 + CU06
+// ============================================================
+
+.servicios-publico { }
+
+// --- Hero ---
+
+.servicios-hero {
+  background: linear-gradient(135deg, #0052A6 0%, #003d80 100%);
+  padding: 5rem 1.5rem;
+  text-align: center;
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    margin: 0;
+  }
+}
+
+// --- Body ---
+
+.servicios-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+// --- Estados ---
+
+.estado-carga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 4rem 0;
+  color: #6b7280;
+  font-family: 'Roboto', sans-serif;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #0052A6;
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.estado-error, .sin-datos {
+  text-align: center;
+  padding: 4rem 0;
+  font-family: 'Roboto', sans-serif;
+  color: #6b7280;
+}
+
+// --- Grid ---
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.servicio-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1.75rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0,82,166,0.15);
+    transform: translateY(-2px);
+    border-color: #0052A6;
+  }
+}
+
+.servicio-icono {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0052A6;
+  flex-shrink: 0;
+}
+
+.servicio-info {
+  flex: 1;
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.5rem;
+  }
+}
+
+.servicio-descripcion {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.servicio-ver-mas {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0052A6;
+}
+
+// --- Ver más ---
+
+.ver-mas-contenedor {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.btn-ver-mas {
+  padding: 0.75rem 2rem;
+  background: #fff;
+  color: #0052A6;
+  border: 2px solid #0052A6;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover { background: #0052A6; color: #fff; }
+}
+
+// --- Modal ---
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.2s ease;
+  padding: 2rem;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.modal-cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f3f4f6;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  transition: background 0.15s;
+
+  &:hover { background: #e5e7eb; }
+}
+
+.modal-icono {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0052A6;
+  margin-bottom: 1.25rem;
+}
+
+.modal-contenido {
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 1rem;
+  }
+}
+
+.modal-descripcion {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0;
+}
