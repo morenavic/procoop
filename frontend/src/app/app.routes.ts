@@ -13,10 +13,19 @@ import { clienteGuard } from './core/guards/cliente.guard';
  *  /               → Redirige al login por defecto
  */
 export const routes: Routes = [
+  // Sitio público
+  {
+    path: '',
+    loadChildren: () => import('./features/public/publico.routes').then((m) => m.publicoRoutes),
+  },
+
+  // Autenticación
   {
     path: 'acceso',
     loadChildren: () => import('./features/auth/auth.routes').then((m) => m.authRoutes),
   },
+
+  // Panel administrador
   {
     path: 'admin',
     canActivate: [adminGuard],
@@ -28,20 +37,17 @@ export const routes: Routes = [
       ),
     loadChildren: () => import('./features/admin/admin.routes').then((m) => m.adminRoutes),
   },
+
+  // Panel cliente
   {
     path: 'cliente',
     canActivate: [clienteGuard],
     loadComponent: () =>
-      import('./layout/cliente-layout/cliente-layout').then(
-        (m) => m.ClienteLayoutComponent,
-      ),
+      import('./layout/cliente-layout/cliente-layout').then((m) => m.ClienteLayoutComponent),
     loadChildren: () => import('./features/cliente/cliente.routes').then((m) => m.clienteRoutes),
   },
-  {
-    path: '',
-    redirectTo: 'acceso/login',
-    pathMatch: 'full',
-  },
+
+  // Fallback
   {
     path: '**',
     redirectTo: 'acceso/login',

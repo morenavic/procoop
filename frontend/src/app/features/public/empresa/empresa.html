@@ -1,0 +1,155 @@
+<div class="empresa">
+
+  <!-- Hero -->
+  <section class="empresa-hero">
+    <div class="hero-contenido">
+      <h1>Nuestra Empresa</h1>
+      <p>Más de 15 años aportando inteligencia informática al sector cooperativo</p>
+    </div>
+  </section>
+
+  <div class="empresa-body">
+
+    <!-- Quiénes somos -->
+    <section class="seccion">
+      <div class="seccion-contenido">
+        <div class="seccion-texto">
+          <span class="seccion-etiqueta">Quiénes somos</span>
+          <h2>Consultoría e informática al servicio de las cooperativas</h2>
+          <p>
+            Somos una empresa de consultoría y servicios informáticos con más de 15 años
+            de experiencia, orientada a la satisfacción de las necesidades competitivas de
+            las empresas mediante la aplicación de las tecnologías de la información.
+          </p>
+          <p>
+            Todas nuestras soluciones tienen como base la innovación, integración y
+            simplicidad, y están orientadas a optimizar cada una de las decisiones
+            empresariales que ha de tomar un directivo en la empresa actual que busca la
+            excelencia y ventajas competitivas reales.
+          </p>
+        </div>
+        <div class="seccion-destacado">
+          <div class="stat">
+            <span class="stat-numero">+15</span>
+            <span class="stat-label">Años de experiencia</span>
+          </div>
+          <div class="stat">
+            <span class="stat-numero">2</span>
+            <span class="stat-label">Sedes en Argentina</span>
+          </div>
+          <div class="stat">
+            <span class="stat-numero">100%</span>
+            <span class="stat-label">Orientados al cliente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Perfil -->
+    <section class="seccion seccion--gris">
+      <div class="seccion-contenido seccion-contenido--centrada">
+        <span class="seccion-etiqueta">Perfil</span>
+        <h2>Socios tecnológicos de nuestros clientes</h2>
+        <p class="texto-centrado">
+          Nuestra visión de crear soluciones integrales nos lleva a ofrecer a nuestros
+          clientes la posibilidad de incluir en los proyectos los aspectos de infraestructura
+          técnica y soporte, convirtiéndonos en verdaderos socios tecnológicos.
+        </p>
+        <p class="texto-centrado">
+          Como integrador de soluciones, mantenemos acuerdos de colaboración con compañías
+          líderes del sector para ofrecer servicios de Ingeniería de Software, Consultoría
+          e Implementación, Dirección de Proyectos y provisión de equipos.
+        </p>
+      </div>
+    </section>
+
+    <!-- Misión -->
+    <section class="seccion">
+      <div class="seccion-contenido seccion-contenido--centrada">
+        <span class="seccion-etiqueta">Misión</span>
+        <h2>Nuestra razón de ser</h2>
+        <div class="mision-card">
+          <p>
+            Aportamos inteligencia informática, tecnología e información al proceso de
+            gestión cooperativa y comercial de nuestros clientes para que alcancen la
+            mayor eficiencia en el logro de sus objetivos y la prestación de sus servicios.
+          </p>
+          <p>
+            Aspiramos a ser referentes en la provisión de herramientas para la gestión
+            cooperativa y comercial, comprometidos con la excelencia, trabajando en equipo
+            con creatividad e incorporando los últimos avances de gestión e informática.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Política de calidad + certificado -->
+    <section class="seccion seccion--azul">
+      <div class="seccion-contenido seccion-contenido--centrada">
+        <span class="seccion-etiqueta seccion-etiqueta--blanca">Calidad</span>
+        <h2 class="texto-blanco">Política de Calidad</h2>
+        <p class="texto-blanco texto-centrado">
+          La calidad es nuestra forma de vida y determina la imagen de ProCoop SRL.
+          Todas nuestras acciones, productos y servicios son identificados como símbolo
+          de nuestra calidad y búsqueda de la excelencia. Nuestro compromiso más
+          importante es satisfacer las necesidades de nuestros clientes y superar sus
+          expectativas en una carrera permanente de mejora continua.
+        </p>
+        <button class="btn-certificado" (click)="descargarCertificado()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Descargar Certificado de Calidad
+        </button>
+      </div>
+    </section>
+
+    <!-- Valores -->
+    <section class="seccion">
+      <div class="seccion-contenido">
+        <span class="seccion-etiqueta">Valores</span>
+        <h2>Lo que nos define</h2>
+        <div class="valores-grid">
+          @for (valor of valores; track valor.titulo) {
+            <div class="valor-card">
+              <div class="valor-icono">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
+                <h3>{{ valor.titulo }}</h3>
+                <p>{{ valor.descripcion }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Sedes -->
+    <section class="seccion seccion--gris">
+      <div class="seccion-contenido seccion-contenido--centrada">
+        <span class="seccion-etiqueta">Dónde estamos</span>
+        <h2>Nuestras sedes</h2>
+        <div class="sedes-grid">
+          @for (sede of sedes; track sede.ciudad) {
+            <div class="sede-card">
+              <div class="sede-icono">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <h3>{{ sede.ciudad }}</h3>
+              <p>{{ sede.direccion }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

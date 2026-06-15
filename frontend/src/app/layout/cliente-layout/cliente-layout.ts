@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
+import { ChatbotComponent } from "../../features/cliente/chatbot/chatbot";
 
 /**
  * Layout principal del panel del cliente.
@@ -17,7 +18,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-cliente-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ChatbotComponent],
   templateUrl: './cliente-layout.html',
   styleUrl: './cliente-layout.scss',
 })

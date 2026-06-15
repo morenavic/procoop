@@ -1,0 +1,132 @@
+<div class="chatbot-contenedor">
+
+  @if (abierto()) {
+    <div class="chat-ventana">
+
+      <div class="chat-encabezado">
+        <div class="chat-encabezado-info">
+          <div class="robot-avatar">
+            <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="24" y1="4" x2="24" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="24" cy="3" r="2.5" fill="white"/>
+              <rect x="10" y="10" width="28" height="22" rx="8" fill="white" fill-opacity="0.2" stroke="white" stroke-width="2"/>
+              <circle cx="18" cy="20" r="3.5" fill="white"/>
+              <circle cx="30" cy="20" r="3.5" fill="white"/>
+              <circle cx="19" cy="19" r="1.2" fill="#0052a6"/>
+              <circle cx="31" cy="19" r="1.2" fill="#0052a6"/>
+              <path d="M18 26 Q24 30 30 26" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <rect x="16" y="32" width="16" height="10" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="2"/>
+              <path d="M10 34 Q6 36 8 40" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M38 34 Q42 36 40 40" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="chat-nombre">ProcoopBot</span>
+            <span class="chat-estado">
+              <span class="estado-punto"></span>
+              En línea
+            </span>
+          </div>
+        </div>
+        <button class="btn-cerrar-chat" (click)="toggleChat()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="chat-mensajes" #mensajesContainer>
+        @for (mensaje of mensajes(); track $index) {
+          <div class="mensaje" [class]="'mensaje--' + mensaje.rol">
+            @if (mensaje.rol === 'asistente') {
+              <div class="mensaje-icono-robot">
+                <svg width="16" height="16" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="24" y1="4" x2="24" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="24" cy="3" r="2.5" fill="white"/>
+                  <rect x="10" y="10" width="28" height="22" rx="8" fill="white" fill-opacity="0.2" stroke="white" stroke-width="2"/>
+                  <circle cx="18" cy="20" r="3.5" fill="white"/>
+                  <circle cx="30" cy="20" r="3.5" fill="white"/>
+                  <circle cx="19" cy="19" r="1.2" fill="#0052a6"/>
+                  <circle cx="31" cy="19" r="1.2" fill="#0052a6"/>
+                  <path d="M18 26 Q24 30 30 26" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+                </svg>
+              </div>
+            }
+            <div class="mensaje-burbuja">
+              {{ mensaje.texto }}
+            </div>
+          </div>
+        }
+
+        @if (cargando()) {
+          <div class="mensaje mensaje--asistente">
+            <div class="mensaje-icono-robot">
+              <svg width="16" height="16" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="24" y1="4" x2="24" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="3" r="2.5" fill="white"/>
+                <rect x="10" y="10" width="28" height="22" rx="8" fill="white" fill-opacity="0.2" stroke="white" stroke-width="2"/>
+                <circle cx="18" cy="20" r="3.5" fill="white"/>
+                <circle cx="30" cy="20" r="3.5" fill="white"/>
+                <circle cx="19" cy="19" r="1.2" fill="#0052a6"/>
+                <circle cx="31" cy="19" r="1.2" fill="#0052a6"/>
+                <path d="M18 26 Q24 30 30 26" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="mensaje-burbuja mensaje-burbuja--cargando">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="chat-input">
+        <input
+          type="text"
+          [(ngModel)]="consulta"
+          placeholder="Escribí tu consulta..."
+          (keyup.enter)="enviar()"
+          [disabled]="cargando()"
+        />
+        <button
+          class="btn-enviar"
+          (click)="enviar()"
+          [disabled]="!consulta.trim() || cargando()"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  }
+
+  <!-- Botón flotante -->
+  <button class="btn-chatbot" (click)="toggleChat()" [class.abierto]="abierto()">
+    @if (abierto()) {
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    } @else {
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="24" y1="2" x2="24" y2="9" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="24" cy="1.5" r="2.5" fill="white"/>
+        <rect x="8" y="9" width="32" height="24" rx="10" fill="white" fill-opacity="0.15" stroke="white" stroke-width="2"/>
+        <circle cx="17" cy="21" r="4" fill="white"/>
+        <circle cx="31" cy="21" r="4" fill="white"/>
+        <circle cx="18.2" cy="19.8" r="1.5" fill="#0052a6"/>
+        <circle cx="32.2" cy="19.8" r="1.5" fill="#0052a6"/>
+        <path d="M16 28 Q24 33 32 28" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <rect x="17" y="33" width="14" height="9" rx="4" fill="white" fill-opacity="0.15" stroke="white" stroke-width="2"/>
+        <path d="M8 35 Q3 37 5 42" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M40 35 Q45 37 43 42" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    }
+  </button>
+
+</div>

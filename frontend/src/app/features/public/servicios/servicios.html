@@ -1,0 +1,97 @@
+<div class="servicios-publico">
+
+  <!-- Hero -->
+  <section class="servicios-hero">
+    <div class="hero-contenido">
+      <h1>Nuestros Servicios</h1>
+      <p>Consultoría, implementación y soporte para el sector cooperativo</p>
+    </div>
+  </section>
+
+  <div class="servicios-body">
+
+    @if (cargando()) {
+      <div class="estado-carga">
+        <div class="spinner"></div>
+        <span>Cargando servicios...</span>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="estado-error">{{ error() }}</div>
+    }
+
+    @if (!cargando() && !error()) {
+
+      @if (todos().length === 0) {
+        <div class="sin-datos">
+          <p>No hay servicios disponibles en este momento.</p>
+        </div>
+      } @else {
+
+        <div class="servicios-grid">
+          @for (servicio of serviciosMostrados; track servicio.idServicio) {
+            <div class="servicio-card" (click)="abrirModal(servicio)">
+              <div class="servicio-icono">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <div class="servicio-info">
+                <h3>{{ servicio.titulo }}</h3>
+                @if (servicio.descripcion) {
+                  <p class="servicio-descripcion">{{ servicio.descripcion }}</p>
+                }
+                <span class="servicio-ver-mas">Ver detalle →</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (hayMas) {
+          <div class="ver-mas-contenedor">
+            <button class="btn-ver-mas" (click)="mostrarTodos.update(v => !v)">
+              {{ mostrarTodos() ? 'Ver menos' : 'Ver más servicios' }}
+            </button>
+          </div>
+        }
+
+      }
+    }
+
+  </div>
+
+  <!-- Modal detalle (CU06) -->
+  @if (servicioSeleccionado()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+
+        <button class="modal-cerrar" (click)="cerrarModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        <div class="modal-icono">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+
+        <div class="modal-contenido">
+          <h2>{{ servicioSeleccionado()!.titulo }}</h2>
+          @if (servicioSeleccionado()!.descripcion) {
+            <p class="modal-descripcion">{{ servicioSeleccionado()!.descripcion }}</p>
+          }
+        </div>
+
+      </div>
+    </div>
+  }
+
+</div>
