@@ -5,49 +5,35 @@ export const publicoRoutes: Routes = [
     path: '',
     loadComponent: () =>
       import('../../layout/publico/publico-layout/publico-layout').then(
-        m => m.PublicoLayoutComponent
+        (m) => m.PublicoLayoutComponent,
       ),
     children: [
       {
         path: 'inicio',
-        loadComponent: () =>
-          import('./inicio/inicio').then(
-            m => m.Inicio
-          )
+        loadComponent: () => import('./inicio/inicio').then((m) => m.Inicio),
       },
       {
         path: 'empresa',
-        loadComponent: () =>
-          import('./empresa/empresa').then(
-            m => m.EmpresaComponent
-          )
+        loadComponent: () => import('./empresa/empresa').then((m) => m.EmpresaComponent),
       },
       {
         path: 'productos',
         loadComponent: () =>
-          import('./productos/productos').then(
-            m => m.Productos
-          )
+          import('./productos/productos').then((m) => m.ProductosPublicoComponent),
       },
       {
         path: 'servicios',
-        loadComponent: () =>
-          import('./servicios/servicios').then(
-            m => m.Servicios
-          )
+        loadComponent: () => import('./servicios/servicios').then((m) => m.Servicios),
       },
       {
         path: 'contacto',
-        loadComponent: () =>
-          import('./contacto/contacto').then(
-            m => m.Contacto
-          )
+        loadComponent: () => import('./contacto/contacto').then((m) => m.Contacto),
       },
       {
         path: '',
         redirectTo: 'inicio',
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];

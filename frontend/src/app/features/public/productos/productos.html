@@ -1,1 +1,109 @@
-<p>productos works!</p>
+<div class="productos-publico">
+
+  <!-- Hero -->
+  <section class="productos-hero">
+    <div class="hero-contenido">
+      <h1>Nuestros Productos</h1>
+      <p>Soluciones de software diseñadas para el sector cooperativo</p>
+    </div>
+  </section>
+
+  <div class="productos-body">
+
+    @if (cargando()) {
+      <div class="estado-carga">
+        <div class="spinner"></div>
+        <span>Cargando productos...</span>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="estado-error">{{ error() }}</div>
+    }
+
+    @if (!cargando() && !error()) {
+
+      @if (todos().length === 0) {
+        <div class="sin-datos">
+          <p>No hay productos disponibles en este momento.</p>
+        </div>
+      } @else {
+
+        <!-- Grid de productos -->
+        <div class="productos-grid">
+          @for (producto of productosMostrados; track producto.idProducto) {
+            <div class="producto-card" (click)="abrirModal(producto)">
+              <div class="producto-imagen">
+                @if (producto.imagenUrl) {
+                  <img [src]="imagenUrl(producto.imagenUrl)" [alt]="producto.titulo" />
+                } @else {
+                  <div class="producto-imagen-placeholder">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                  </div>
+                }
+              </div>
+              <div class="producto-info">
+                <h3>{{ producto.titulo }}</h3>
+                @if (producto.subtitulo) {
+                  <p class="producto-subtitulo">{{ producto.subtitulo }}</p>
+                }
+                @if (producto.descripcion) {
+                  <p class="producto-descripcion">{{ producto.descripcion }}</p>
+                }
+                <span class="producto-ver-mas">Ver detalle →</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Ver más / Ver menos -->
+        @if (hayMas) {
+          <div class="ver-mas-contenedor">
+            <button class="btn-ver-mas" (click)="mostrarTodos.update(v => !v)">
+              {{ mostrarTodos() ? 'Ver menos' : 'Ver más productos' }}
+            </button>
+          </div>
+        }
+
+      }
+    }
+
+  </div>
+
+  <!-- Modal detalle (CU04) -->
+  @if (productoSeleccionado()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+
+        <button class="modal-cerrar" (click)="cerrarModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        @if (productoSeleccionado()!.imagenUrl) {
+          <div class="modal-imagen">
+            <img [src]="imagenUrl(productoSeleccionado()!.imagenUrl)" [alt]="productoSeleccionado()!.titulo" />
+          </div>
+        }
+
+        <div class="modal-contenido">
+          <h2>{{ productoSeleccionado()!.titulo }}</h2>
+          @if (productoSeleccionado()!.subtitulo) {
+            <p class="modal-subtitulo">{{ productoSeleccionado()!.subtitulo }}</p>
+          }
+          @if (productoSeleccionado()!.descripcion) {
+            <p class="modal-descripcion">{{ productoSeleccionado()!.descripcion }}</p>
+          }
+        </div>
+
+      </div>
+    </div>
+  }
+
+</div>
