@@ -28,7 +28,7 @@ export const publicoRoutes: Routes = [
       },
       {
         path: 'contacto',
-        loadComponent: () => import('./contacto/contacto').then((m) => m.Contacto),
+        loadComponent: () => import('./contacto/contacto').then((m) => m.ContactoComponent),
       },
       {
         path: '',
