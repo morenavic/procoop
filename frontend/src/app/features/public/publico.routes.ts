@@ -19,7 +19,7 @@ export const publicoRoutes: Routes = [
         path: 'empresa',
         loadComponent: () =>
           import('./empresa/empresa').then(
-            m => m.Empresa
+            m => m.EmpresaComponent
           )
       },
       {
