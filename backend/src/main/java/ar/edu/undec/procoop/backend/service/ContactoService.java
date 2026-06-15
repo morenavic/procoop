@@ -1,11 +1,12 @@
 package ar.edu.undec.procoop.backend.service;
 
-import ar.edu.undec.procoop.backend.dto.request.ContactoRequestDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import ar.edu.undec.procoop.backend.dto.request.ContactoRequestDTO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Servicio para el envío de consultas desde el formulario de contacto público.
@@ -27,15 +28,24 @@ public class ContactoService {
         mensaje.setTo(emailDestino);
         mensaje.setReplyTo(dto.getEmail());
         mensaje.setSubject("Consulta web — " + dto.getAsunto());
-        mensaje.setText(
-                "Nueva consulta recibida desde el sitio web de Procoop.\n\n" +
-                        "Nombre: " + dto.getNombre() + "\n" +
-                        "Email: " + dto.getEmail() + "\n" +
-                        (dto.getTelefono() != null && !dto.getTelefono().isBlank()
+        mensaje.setText("""
+                Nueva consulta recibida desde el sitio web de Procoop.
+                
+                Nombre: %s
+                Email: %s
+                %sAsunto: %s
+                
+                Mensaje:
+                %s
+                """.formatted(
+                        dto.getNombre(),
+                        dto.getEmail(),
+                        dto.getTelefono() != null && !dto.getTelefono().isBlank()
                                 ? "Teléfono: " + dto.getTelefono() + "\n"
-                                : "") +
-                        "Asunto: " + dto.getAsunto() + "\n\n" +
-                        "Mensaje:\n" + dto.getMensaje()
+                                : "",
+                        dto.getAsunto(),
+                        dto.getMensaje()
+                )
         );
         mailSender.send(mensaje);
     }
