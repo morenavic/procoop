@@ -2,8 +2,6 @@
 // Servicios públicos — CU05 + CU06
 // ============================================================
 
-.servicios-publico { }
-
 // --- Hero ---
 
 .servicios-hero {
@@ -124,6 +122,7 @@
   margin: 0 0 0.75rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
