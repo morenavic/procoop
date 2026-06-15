@@ -10,7 +10,7 @@ export const publicoRoutes: Routes = [
     children: [
       {
         path: 'inicio',
-        loadComponent: () => import('./inicio/inicio').then((m) => m.Inicio),
+        loadComponent: () => import('./inicio/inicio').then((m) => m.InicioPublicoComponent),
       },
       {
         path: 'empresa',

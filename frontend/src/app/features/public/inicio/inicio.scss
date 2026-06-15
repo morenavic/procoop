@@ -1,0 +1,446 @@
+// ============================================================
+// Inicio público
+// ============================================================
+
+// --- Hero ---
+
+.hero {
+  background: linear-gradient(135deg, #0052A6 0%, #003d80 100%);
+  padding: 5rem 1.5rem;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-texto {
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0.5rem 0 1rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin: 0 0 2rem;
+    max-width: 520px;
+  }
+}
+
+.hero-etiqueta {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #93c5fd;
+  background: rgba(255,255,255,0.1);
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+}
+
+.hero-acciones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.75rem;
+  background: #fff;
+  color: #0052A6;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+
+  &:hover {
+    background: #e0ecff;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.75rem;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(255,255,255,0.2); }
+}
+
+// --- Hero gráfico ---
+
+.hero-grafico {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) { display: none; }
+}
+
+.hero-icono-grande {
+  width: 160px;
+  height: 160px;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-badge {
+  position: absolute;
+  background: #fff;
+  color: #0052A6;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+  &--1 { top: 10px; right: 0; }
+  &--2 { bottom: 30px; left: 0; }
+  &--3 { bottom: 10px; right: 10px; }
+}
+
+// --- Secciones ---
+
+.seccion {
+  padding: 4rem 1.5rem;
+
+  &--gris { background: #f9fafb; }
+  &--azul { background: #0052A6; }
+}
+
+.seccion-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.seccion-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+
+  &--centrado {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0.35rem 0 0;
+  }
+}
+
+.texto-blanco { color: #fff !important; }
+
+.seccion-etiqueta {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #0052A6;
+  background: #eff6ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+
+  &--blanca {
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+  }
+}
+
+.ver-todos-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0052A6;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+
+  &:hover { color: #003d80; }
+}
+
+// --- Cards grid ---
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+}
+
+// --- Servicio card ---
+
+.servicio-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0,82,166,0.12);
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0.75rem 0 0.5rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.card-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0052A6;
+}
+
+// --- Producto card ---
+
+.producto-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0,82,166,0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.producto-imagen {
+  height: 160px;
+  background: #f3f4f6;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.producto-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d1d5db;
+}
+
+.producto-info {
+  padding: 1.25rem;
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.35rem;
+  }
+}
+
+.producto-subtitulo {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  color: #0052A6;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+}
+
+.producto-descripcion {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// --- Razones ---
+
+.razones-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.razon-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.4rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.razon-icono {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+// --- CTA ---
+
+.cta {
+  padding: 5rem 1.5rem;
+  background: #f9fafb;
+  text-align: center;
+}
+
+.cta-contenido {
+  max-width: 600px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 1rem;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+}
+
+.cta-acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primario.cta-btn {
+  background: #0052A6;
+  color: #fff;
+
+  &:hover { background: #003d80; }
+}
+
+.btn-secundario-oscuro {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.75rem;
+  background: #fff;
+  color: #0052A6;
+  border: 2px solid #0052A6;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover { background: #0052A6; color: #fff; }
+}
