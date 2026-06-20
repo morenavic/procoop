@@ -1,60 +1,59 @@
+spring:
+  application:
+    name: procoop-backend
 
-  spring:
-    application:
-      name: procoop-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
 
-    datasource:
-      url: ${DB_URL:jdbc:postgresql:}
-      username:
-      password:
-      driver-class-name: org.postgresql.Driver
-
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    properties:
       hibernate:
-        ddl-auto: validate
-      show-sql: false
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
-          format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
-    servlet:
-      multipart:
-        enabled: true
-        max-file-size: 5MB
-        max-request-size: 10MB
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
 
-    web:
-      resources:
-        static-locations: file:${UPLOADS_DIR:uploads/}
+  web:
+    resources:
+      static-locations: file:${UPLOADS_DIR:uploads/}
 
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      username: ${MAIL_USERNAME:}
-      password: ${MAIL_PASSWORD:}
-      properties:
-        mail:
-          smtp:
-            auth: true
-            starttls:
-              enable: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
-  server:
-    port: ${PORT:8080}
+server:
+  port: ${PORT:8080}
 
-  app:
-    uploads:
-      dir: ${UPLOADS_DIR:uploads/}
-    jwt:
-      secret: ${JWT_SECRET:clave-secreta-temporal-cambiar-en-produccion}
-      expiration: ${JWT_EXPIRATION:}
-    frontend:
-      url: ${FRONTEND_URL:http://localhost:4200}
-    gemini:
-      api-key: ${GEMINI_API_KEY:}
-      url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
-
-  logging:
-    level:
-      ar.edu.undec.procoop: INFO
+app:
+  uploads:
+    dir: ${UPLOADS_DIR:uploads/}
+  jwt:
+    secret: ${JWT_SECRET:}
+    expiration: ${JWT_EXPIRATION:}
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:4200}
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    url: ${OPENAI_URL:https:}
+    model: ${OPENAI_MODEL:}
+logging:
+  level:
+    ar.edu.undec.procoop: INFO
