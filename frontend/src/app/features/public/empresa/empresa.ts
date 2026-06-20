@@ -52,7 +52,7 @@ export class EmpresaComponent {
   descargarCertificado(): void {
     const link = document.createElement('a');
     link.href = 'certificado-procoopsrl-2014.pdf';
-    link.download = 'Certificado-Calidad-Procoop.pdf';
+    link.download = 'Certificado-Calidad-ProcoopSRL.pdf';
     link.click();
   }
 }

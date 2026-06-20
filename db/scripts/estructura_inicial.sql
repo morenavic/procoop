@@ -1,5 +1,5 @@
 -- ============================================================
--- V1 - Estructura inicial de la base de datos Procoop
+-- Estructura inicial de la base de datos Procoop
 -- Crea todas las tablas alineadas con el modelo entidad-relación
 -- ============================================================
 
@@ -19,36 +19,36 @@ CREATE TABLE usuario (
     estado         VARCHAR(20)  NOT NULL DEFAULT 'PENDIENTE'
                         CHECK (estado IN ('ACTIVO', 'INACTIVO', 'PENDIENTE')),
     id_rol         INTEGER NOT NULL REFERENCES rol(id_rol),
-    imagen VARCHAR(255)
+    imagen         VARCHAR(255)
 );
 
 -- Tabla: token_recuperacion
 CREATE TABLE token_recuperacion (
-    id_token        SERIAL PRIMARY KEY,
-    token           VARCHAR(255) NOT NULL UNIQUE,
-    fecha_creacion  TIMESTAMP    NOT NULL DEFAULT NOW(),
-    fecha_expiracion TIMESTAMP   NOT NULL,
-    usado           BOOLEAN      NOT NULL DEFAULT FALSE,
-    id_usuario      INTEGER      NOT NULL REFERENCES usuario(id_usuario)
+    id_token         SERIAL PRIMARY KEY,
+    token            VARCHAR(255) NOT NULL UNIQUE,
+    fecha_creacion   TIMESTAMP    NOT NULL DEFAULT NOW(),
+    fecha_expiracion TIMESTAMP    NOT NULL,
+    usado            BOOLEAN      NOT NULL DEFAULT FALSE,
+    id_usuario       INTEGER      NOT NULL REFERENCES usuario(id_usuario)
 );
 
 -- Tabla: novedad
 -- tipo: NOTICIA | EVENTO
 CREATE TABLE novedad (
     id_novedad  SERIAL PRIMARY KEY,
-    titulo      VARCHAR(200)  NOT NULL,
-    descripcion TEXT          NOT NULL,
-    fecha       DATE          NOT NULL,
+    titulo      VARCHAR(200) NOT NULL,
+    descripcion TEXT         NOT NULL,
+    fecha       DATE         NOT NULL,
     imagen      VARCHAR(255),
-    tipo        VARCHAR(10)   NOT NULL CHECK (tipo IN ('NOTICIA', 'EVENTO'))
+    tipo        VARCHAR(10)  NOT NULL CHECK (tipo IN ('NOTICIA', 'EVENTO'))
 );
 
--- Tabla: producto (sin slug)
+-- Tabla: producto
 CREATE TABLE producto (
     id_producto SERIAL PRIMARY KEY,
-    titulo      VARCHAR(200)  NOT NULL,
+    titulo      VARCHAR(200) NOT NULL,
     subtitulo   VARCHAR(300),
-    descripcion TEXT          NOT NULL,
+    descripcion TEXT,
     imagen      VARCHAR(255)
 );
 
@@ -56,14 +56,17 @@ CREATE TABLE producto (
 CREATE TABLE servicio (
     id_servicio SERIAL PRIMARY KEY,
     titulo      VARCHAR(200) NOT NULL,
-    descripcion TEXT         NOT NULL
+    descripcion TEXT
 );
 
 -- Tabla: documento
+-- tipo: MANUAL | GUIA | OTRO
 CREATE TABLE documento (
     id_documento SERIAL PRIMARY KEY,
     nombre       VARCHAR(200) NOT NULL,
     descripcion  TEXT,
+    tipo         VARCHAR(20)  NOT NULL DEFAULT 'OTRO'
+                     CHECK (tipo IN ('MANUAL', 'GUIA', 'OTRO')),
     archivo      VARCHAR(255) NOT NULL
 );
 

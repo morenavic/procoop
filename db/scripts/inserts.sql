@@ -1,268 +1,209 @@
 -- ============================================================
--- SEED: rol
+-- SCRIPT DE DATOS DE PRUEBA — PROCOOP
 -- ============================================================
-INSERT INTO rol (nombre) VALUES
-('ADMIN'),
-('CLIENTE');
 
-
--- ============================================================
--- SEED: usuario (10 registros)
--- ============================================================
-INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol, imagen)
-VALUES
-('María González',    'maria.gonzalez@gmail.com',       '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001001', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Carlos Rodríguez',  'carlos.rodriguez@hotmail.com',    '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001002', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Ana Martínez',      'ana.martinez@yahoo.com',           '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001003', 'PENDIENTE', (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Luis Fernández',    'luis.fernandez@gmail.com',        '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001004', 'PENDIENTE', (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Laura Pérez',       'laura.perez@outlook.com',          '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001005', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Diego Sánchez',     'diego.sanchez@gmail.com',          '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001006', 'INACTIVO',  (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Sofía López',       'sofia.lopez@gmail.com',            '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001007', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Martín Torres',     'martin.torres@hotmail.com',        '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001008', 'PENDIENTE', (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Valentina Ruiz',    'valentina.ruiz@gmail.com',         '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '001009', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'CLIENTE'), NULL),
-('Admin Principal',   'admin@cooperativa.com',            '$2a$10$jvNcGfx1I.Y6FmT2fP6NnuIX4OsnnBJKk7wkO17VlnbZulhTPvAqC', '000001', 'ACTIVO',    (SELECT id_rol FROM rol WHERE nombre = 'ADMIN'),   NULL);
-
+-- Roles (deben existir previamente, pero los incluimos por si acaso)
+INSERT INTO rol (id_rol, nombre) VALUES (1, 'ADMINISTRADOR') ON CONFLICT DO NOTHING;
+INSERT INTO rol (id_rol, nombre) VALUES (2, 'CLIENTE') ON CONFLICT DO NOTHING;
 
 -- ============================================================
--- SEED: token_recuperacion (10 registros)
+-- USUARIOS
+-- Admin: Admin123! | Clientes: Clientes123
 -- ============================================================
-INSERT INTO token_recuperacion (token, fecha_creacion, fecha_expiracion, usado, id_usuario)
-VALUES
-('tok-aaa111bbb222', '2025-05-01 08:00:00', '2025-05-01 09:00:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'maria.gonzalez@gmail.com')),
-('tok-bbb222ccc333', '2025-05-03 10:30:00', '2025-05-03 11:30:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'carlos.rodriguez@hotmail.com')),
-('tok-ccc333ddd444', '2025-05-10 14:00:00', '2025-05-10 15:00:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'ana.martinez@yahoo.com')),
-('tok-ddd444eee555', '2025-05-15 09:00:00', '2025-05-15 10:00:00', FALSE, (SELECT id_usuario FROM usuario WHERE email = 'luis.fernandez@gmail.com')),
-('tok-eee555fff666', '2025-05-18 16:00:00', '2025-05-18 17:00:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'laura.perez@outlook.com')),
-('tok-fff666ggg777', '2025-05-20 11:00:00', '2025-05-20 12:00:00', FALSE, (SELECT id_usuario FROM usuario WHERE email = 'diego.sanchez@gmail.com')),
-('tok-ggg777hhh888', '2025-05-22 13:00:00', '2025-05-22 14:00:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'sofia.lopez@gmail.com')),
-('tok-hhh888iii999', '2025-05-25 08:30:00', '2025-05-25 09:30:00', FALSE, (SELECT id_usuario FROM usuario WHERE email = 'martin.torres@hotmail.com')),
-('tok-iii999jjj000', '2025-05-28 17:00:00', '2025-05-28 18:00:00', TRUE,  (SELECT id_usuario FROM usuario WHERE email = 'valentina.ruiz@gmail.com')),
-('tok-jjj000kkk111', NOW(),                  NOW() + INTERVAL '1 hour',   FALSE, (SELECT id_usuario FROM usuario WHERE email = 'admin@cooperativa.com'));
 
+INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol) VALUES
+('Administrador Procoop', 'admin@procoop.com.ar', '$2a$10$eu9h07R38PN2JLT7ubsNGuJ6m0G0niIXdlcb.rqqIKRyzMC9itadm', 'ADM-001', 'ACTIVO', 1);
+
+INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol) VALUES
+('María González', 'maria.gonzalez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '001001', 'ACTIVO', 2),
+('Carlos Rodríguez', 'carlos.rodriguez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '002002', 'ACTIVO', 2),
+('Ana Martínez', 'ana.martinez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '003003', 'ACTIVO', 2),
+('Luis Fernández', 'luis.fernandez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '004004', 'ACTIVO', 2),
+('Laura Pérez', 'laura.perez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '005005', 'INACTIVO', 2),
+('Diego Sánchez', 'diego.sanchez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '006006', 'PENDIENTE', 2),
+('Sofía López', 'sofia.lopez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '007007', 'ACTIVO', 2);
 
 -- ============================================================
--- SEED: novedad (10 registros)
+-- PRODUCTOS
 -- ============================================================
-INSERT INTO novedad (titulo, descripcion, fecha, imagen, tipo)
-VALUES
+
+INSERT INTO producto (titulo, subtitulo, descripcion, imagen) VALUES
 (
-    'Apertura de nueva sucursal',
-    'Nos complace anunciar la apertura de nuestra nueva sucursal en el centro de la ciudad, disponible para todos los socios a partir del 1 de julio.',
-    '2025-06-15', 'noticias/nueva-sucursal.jpg', 'NOTICIA'
+  'ProCoop Gestión',
+  'Sistema de Gestión Integral para Cooperativas',
+  'Sistema de Gestión Integral desarrollado exclusivamente para Cooperativas y empresas de Servicios. Incorpora todas las funcionalidades para gestión de servicios tales como Energía Eléctrica, Gas Natural, Telefonía, Agua, Internet, TV y Servicios Sociales. Es un sistema flexible y configurable que se adapta a las principales necesidades de cada organización.',
+  NULL
 ),
 (
-    'Asamblea General Ordinaria 2025',
-    'Convocamos a todos los socios a participar de la Asamblea General Ordinaria que se realizará el 20 de junio en el salón principal.',
-    '2025-06-20', 'eventos/asamblea-2025.jpg', 'EVENTO'
+  'ProCoop P-Móvil',
+  'Toma de estados de medidores desde dispositivos móviles',
+  'Aplicación móvil para toma de estados de medidores con dispositivos de lectura de bajo costo. Permite la captura de lecturas en campo y su integración directa con el sistema de gestión ProCoop, reduciendo errores y optimizando los tiempos de relevamiento.',
+  NULL
 ),
 (
-    'Nuevas tasas de interés vigentes',
-    'A partir del 1 de julio entran en vigencia las nuevas tasas para créditos personales e hipotecarios. Consultá las condiciones en sucursal.',
-    '2025-07-01', NULL, 'NOTICIA'
+  'ProCoop 3S',
+  'Soporte permanente para sistemas de gestión de servicios',
+  'El apoyo permanente que necesita todo usuario de Sistemas de Gestión de Servicios Públicos. Brinda asistencia continua, actualizaciones y acompañamiento técnico para garantizar el correcto funcionamiento del sistema en todo momento.',
+  NULL
 ),
 (
-    'Jornada de educación financiera',
-    'Te invitamos a nuestra jornada gratuita de educación financiera orientada a jóvenes socios. Cupos limitados, inscribite antes del 5 de julio.',
-    '2025-07-10', 'eventos/jornada-financiera.jpg', 'EVENTO'
+  'ProCoop POS',
+  'Punto de venta fiscal integrado',
+  'Complemento ideal de ProCoop Gestión, diseñado exclusivamente para clientes que necesiten incorporar Puntos de Ventas Fiscales en su empresa. Se integra e interrelaciona con todos los módulos de ProCoop Gestión.',
+  NULL
 ),
 (
-    'Actualización del sistema de home banking',
-    'El día 12 de julio realizaremos tareas de mantenimiento en la plataforma de home banking entre las 2 y las 6 de la madrugada.',
-    '2025-07-12', NULL, 'NOTICIA'
+  'ProCoop Web',
+  'Autogestión de servicios para usuarios en línea',
+  'Servicio web estándar configurable que posibilita mostrar contenido de ProCoop Gestión en un sitio web al que pueden acceder los usuarios de servicios públicos para imprimir facturas, consultar deudas, consumos y generar reclamos desde cualquier dispositivo.',
+  NULL
 ),
 (
-    'Feria de emprendedores cooperativos',
-    'Participá de la feria anual donde socios emprendedores exhiben sus productos y servicios. Entrada libre y gratuita para toda la comunidad.',
-    '2025-07-18', 'eventos/feria-emprendedores.jpg', 'EVENTO'
+  'ProCoop SMS',
+  'Comunicación masiva con asociados por mensajería',
+  'Complemento de ProCoop Gestión que permite el envío de mensajes de texto a los celulares de asociados, clientes o usuarios. Permite mensajes personalizados con datos de factura, avisos de corte de servicio, citaciones y promociones.',
+  NULL
 ),
 (
-    'Incorporación de pagos con QR',
-    'A partir de agosto podrás realizar pagos en comercios adheridos escaneando el código QR desde la app de la cooperativa.',
-    '2025-07-25', 'noticias/pagos-qr.jpg', 'NOTICIA'
-),
-(
-    'Charla: Planificación financiera familiar',
-    'Nuestros asesores brindarán una charla abierta sobre cómo organizar las finanzas del hogar. Sábado 2 de agosto a las 10 hs.',
-    '2025-08-02', 'eventos/charla-finanzas.jpg', 'EVENTO'
-),
-(
-    'Nuevo seguro de hogar disponible',
-    'Incorporamos a nuestro catálogo el seguro de hogar cooperativo con cobertura integral y cuotas accesibles para todos los socios.',
-    '2025-08-10', 'noticias/seguro-hogar.jpg', 'NOTICIA'
-),
-(
-    'Torneo de integración socios 2025',
-    'Organizamos un torneo deportivo de integración para socios y sus familias. Actividades para todas las edades. Inscribite en sucursal.',
-    '2025-08-20', 'eventos/torneo-integracion.jpg', 'EVENTO'
+  'ProCoop Turnero',
+  'Sistema de gestión de turnos y atención al público',
+  'Facilita la atención de personas en espera mediante el llamado secuencial por turnos. Permite la definición de múltiples mesas de atención, boxes y cajas. Genera estadísticas de tiempo de espera y cantidad de personas atendidas por puesto.',
+  NULL
 );
 
+-- ============================================================
+-- SERVICIOS
+-- ============================================================
 
--- ============================================================
--- SEED: producto (10 registros)
--- ============================================================
-INSERT INTO producto (titulo, subtitulo, descripcion, imagen)
-VALUES
+INSERT INTO servicio (titulo, descripcion) VALUES
 (
-    'Caja de Ahorro',
-    'Tu dinero disponible siempre',
-    'Cuenta de ahorro sin costo de mantenimiento, con tarjeta de débito incluida y acceso a home banking las 24 horas del día.',
-    'productos/caja-ahorro.jpg'
+  'Consultoría, Análisis e Implementación de Sistemas',
+  'Brindamos el servicio de relevamiento y análisis para la implementación de soluciones propias, trabajando conjuntamente con el cliente para identificar necesidades, proponer mejoras y garantizar una implementación exitosa.'
 ),
 (
-    'Crédito Personal',
-    'Financiá tus proyectos',
-    'Préstamos personales con tasas preferenciales para socios activos. Hasta 60 cuotas fijas y acreditación en 48 horas hábiles.',
-    'productos/credito-personal.jpg'
+  'Soluciones llave en mano con resultados garantizados',
+  'Acompañamos y asistimos a nuestros clientes con nuestro equipo de profesionales durante todo el proyecto, desde el relevamiento de necesidades hasta la post-implementación. El alcance y las características de asistencia se ajustan a la necesidad de cada cliente.'
 ),
 (
-    'Crédito Hipotecario',
-    'Tu casa propia, más cerca',
-    'Línea de crédito hipotecario para construcción, compra o refacción de vivienda. Condiciones especiales para socios con antigüedad.',
-    'productos/credito-hipotecario.jpg'
+  'Capacitación y entrenamiento',
+  'Realizamos capacitaciones a medida de las necesidades de nuestros clientes en el uso de nuestros productos. Las capacitaciones se realizan in company, en nuestras oficinas o de manera remota, con material de apoyo para autocapacitación.'
 ),
 (
-    'Plazo Fijo',
-    'Hacé rendir tus ahorros',
-    'Invertí tu dinero con tasas competitivas. Plazos desde 30 días con renovación automática opcional y liquidación de intereses al vencimiento.',
-    'productos/plazo-fijo.jpg'
+  'Metodología de implementación',
+  'A lo largo de todos estos años definimos una metodología que permite asegurar la implementación exitosa de nuestros proyectos, cubriendo las etapas de análisis, definición, migración, parametrización, prueba, puesta en marcha y acompañamiento.'
 ),
 (
-    'Cuenta Corriente',
-    'Para quienes mueven su negocio',
-    'Cuenta corriente cooperativa con chequera disponible, ideal para comerciantes y pequeños empresarios socios de la institución.',
-    'productos/cuenta-corriente.jpg'
+  'Migración de sistemas',
+  'Analizamos la factibilidad técnica y definimos los procesos de migración del sistema en uso al nuevo sistema ProCoop, garantizando la integridad de los datos históricos y la continuidad operativa durante el proceso de transición.'
 ),
 (
-    'Crédito Pyme',
-    'Impulso para tu empresa',
-    'Financiamiento especial para pequeñas y medianas empresas asociadas. Montos elevados, plazos flexibles y tasas bonificadas.',
-    'productos/credito-pyme.jpg'
+  'Soporte y acompañamiento post-implementación',
+  'Acompañamos al cliente en todas las situaciones necesarias, tanto para los procesos operativos como en la definición y adaptación de nuevos procesos. Brindamos soporte técnico continuo para garantizar el correcto funcionamiento del sistema.'
 ),
 (
-    'Tarjeta de Débito',
-    'Pagá en cualquier lugar',
-    'Tarjeta de débito asociada a tu caja de ahorro. Aceptada en todos los comercios adheridos a la red y en cajeros automáticos de todo el país.',
-    'productos/tarjeta-debito.jpg'
-),
-(
-    'Seguro de Vida',
-    'Protección para vos y tu familia',
-    'Cobertura de vida accesible para socios activos, sin examen médico previo. Suma asegurada configurable según necesidad.',
-    'productos/seguro-vida.jpg'
-),
-(
-    'Crédito Automotor',
-    'Manejá tu propio vehículo',
-    'Financiación para la compra de vehículos 0 km o usados. Hasta 48 cuotas con tasa fija y sin gastos de otorgamiento para socios.',
-    'productos/credito-automotor.jpg'
-),
-(
-    'Fondo de Inversión Cooperativo',
-    'Invertí de forma colectiva',
-    'Participá de nuestro fondo de inversión solidario. Rentabilidad competitiva con impacto social directo en proyectos de la comunidad.',
-    'productos/fondo-inversion.jpg'
+  'Desarrollo de soluciones a medida',
+  'Desarrollamos funcionalidades específicas adaptadas a las necesidades particulares de cada organización, integrando las soluciones con los sistemas existentes y asegurando la escalabilidad y mantenimiento a largo plazo.'
 );
 
+-- ============================================================
+-- NOVEDADES
+-- ============================================================
 
--- ============================================================
--- SEED: servicio (10 registros)
--- ============================================================
-INSERT INTO servicio (titulo, descripcion)
-VALUES
+INSERT INTO novedad (titulo, descripcion, fecha, imagen, tipo) VALUES
 (
-    'Home Banking',
-    'Accedé a tu cuenta desde cualquier dispositivo. Consultá saldos, realizá transferencias y pagá servicios sin moverte de tu casa.'
+  'Lanzamiento de ProCoop Gestión versión 5.0',
+  'Con gran satisfacción anunciamos el lanzamiento de la nueva versión 5.0 de ProCoop Gestión. Esta actualización incorpora mejoras significativas en el módulo de facturación electrónica, nuevas funcionalidades para la gestión de cobranzas y una interfaz renovada que optimiza la experiencia de uso.',
+  '2026-05-15',
+  NULL,
+  'NOTICIA'
 ),
 (
-    'Débito Automático',
-    'Adherí tus facturas y pagalas automáticamente desde tu cuenta. Sin vencimientos olvidados, sin filas, sin preocupaciones.'
+  'Asamblea General Ordinaria 2026',
+  'Convocamos a todos los socios a participar de la Asamblea General Ordinaria que se realizará el próximo 20 de junio de 2026 en nuestras instalaciones de Córdoba. En esta oportunidad se tratarán los estados contables del ejercicio, la memoria y balance, y la elección de autoridades.',
+  '2026-05-20',
+  NULL,
+  'EVENTO'
 ),
 (
-    'Atención Personalizada',
-    'Contamos con asesores financieros que te acompañan en cada etapa. Disponible de forma presencial o por videollamada según tu preferencia.'
+  'Nuevas funcionalidades en ProCoop Web',
+  'Informamos a todos nuestros clientes que hemos incorporado nuevas funcionalidades al módulo ProCoop Web. Los usuarios ahora pueden gestionar sus reclamos en línea, visualizar el historial de pagos y descargar comprobantes de los últimos 12 meses desde cualquier dispositivo.',
+  '2026-04-10',
+  NULL,
+  'NOTICIA'
 ),
 (
-    'Cajeros Automáticos',
-    'Red de cajeros propios y adheridos en toda la región. Extracciones sin costo en cajeros de la red cooperativa las 24 horas.'
+  'Jornada de capacitación en Monte Maíz',
+  'Realizaremos una jornada de capacitación intensiva en nuestra sede de Monte Maíz el 15 de julio de 2026. La capacitación está orientada a usuarios del módulo de facturación y cobranzas de ProCoop Gestión. Los interesados deben inscribirse antes del 30 de junio.',
+  '2026-04-25',
+  NULL,
+  'EVENTO'
 ),
 (
-    'Transferencias Inmediatas',
-    'Enviá dinero a cualquier cuenta bancaria del país de forma instantánea a través de nuestra plataforma digital o en sucursal.'
+  'Incorporamos soporte para factura electrónica AFIP',
+  'ProCoop Gestión ahora incorpora soporte completo para factura electrónica según las últimas resoluciones de AFIP. Todos nuestros clientes con contratos de soporte activos recibirán la actualización de forma gratuita durante el mes de mayo.',
+  '2026-03-18',
+  NULL,
+  'NOTICIA'
 ),
 (
-    'Pago de Servicios',
-    'Aboná luz, gas, agua, telefonía e impuestos desde home banking, la app o en nuestras cajas. Rápido, seguro y sin comisiones adicionales.'
+  'Encuentro anual de cooperativas del NOA',
+  'Procoop participará como expositor en el Encuentro Anual de Cooperativas del NOA que se celebrará en San Salvador de Jujuy los días 8 y 9 de agosto de 2026. Presentaremos las últimas novedades de nuestra suite de productos.',
+  '2026-03-05',
+  NULL,
+  'EVENTO'
 ),
 (
-    'Asesoramiento en Inversiones',
-    'Nuestros especialistas te orientan para que tus ahorros crezcan. Analizamos tu perfil y te ofrecemos las mejores opciones disponibles.'
-),
-(
-    'Gestión de Seguros',
-    'Administrá todos tus seguros desde un solo lugar. Contratación, renovación y denuncias de siniestros con acompañamiento personalizado.'
-),
-(
-    'App Móvil Cooperativa',
-    'Descargá nuestra aplicación y llevá tu cuenta en el bolsillo. Disponible para Android e iOS con autenticación biométrica y notificaciones en tiempo real.'
-),
-(
-    'Soporte Técnico Digital',
-    'Asistencia para el uso de nuestros canales digitales. Atención por chat, teléfono o turno presencial de lunes a sábados en horario extendido.'
+  'Acuerdo de colaboración con nueva cooperativa eléctrica',
+  'Nos complace anunciar la firma de un nuevo acuerdo de implementación con una cooperativa de distribución eléctrica de la provincia de Córdoba. Este proyecto incluye la implementación completa de ProCoop Gestión con los módulos de facturación, cobranzas y gestión técnica.',
+  '2026-02-12',
+  NULL,
+  'NOTICIA'
 );
 
+-- ============================================================
+-- DOCUMENTOS
+-- ============================================================
 
--- ============================================================
--- SEED: documento (10 registros)
--- ============================================================
-INSERT INTO documento (nombre, descripcion, archivo)
-VALUES
+INSERT INTO documento (nombre, descripcion, tipo, archivo) VALUES
 (
-    'Estatuto Social',
-    'Documento fundacional que regula el funcionamiento, organización y gobierno de la cooperativa.',
-    'documentos/estatuto-social.pdf'
+  'Manual de usuario ProCoop Gestión',
+  'Guía completa para el uso del sistema ProCoop Gestión. Cubre todos los módulos disponibles: asociados, servicios, consumos, facturación, ventas y cobranzas.',
+  'MANUAL',
+  'documentos/manual-procoop-gestion.pdf'
 ),
 (
-    'Reglamento de Créditos',
-    'Normativa interna que establece las condiciones, requisitos y procedimientos para el otorgamiento de créditos a socios.',
-    'documentos/reglamento-creditos.pdf'
+  'Guía de instalación y configuración inicial',
+  'Paso a paso para la instalación del sistema ProCoop en entornos Windows Server. Incluye requisitos mínimos de hardware, configuración de base de datos y puesta en marcha.',
+  'GUIA',
+  'documentos/guia-instalacion.pdf'
 ),
 (
-    'Memoria y Balance 2024',
-    'Informe anual con los estados contables y la memoria del ejercicio correspondiente al año 2024.',
-    'documentos/memoria-balance-2024.pdf'
+  'Manual de módulo facturación electrónica',
+  'Documentación completa del módulo de facturación electrónica integrado con AFIP. Incluye configuración de certificados digitales, tipos de comprobantes y resolución de errores frecuentes.',
+  'MANUAL',
+  'documentos/manual-facturacion-electronica.pdf'
 ),
 (
-    'Formulario de Adhesión',
-    'Formulario oficial para nuevos socios que deseen incorporarse a la cooperativa. Completarlo y presentarlo en sucursal.',
-    'documentos/formulario-adhesion.pdf'
+  'Guía de migración de datos',
+  'Procedimiento detallado para la migración de datos desde sistemas anteriores a ProCoop Gestión. Incluye formatos de importación, validaciones y verificación de integridad.',
+  'GUIA',
+  'documentos/guia-migracion-datos.pdf'
 ),
 (
-    'Reglamento de Asambleas',
-    'Documento que regula la convocatoria, desarrollo y toma de decisiones en las asambleas ordinarias y extraordinarias.',
-    'documentos/reglamento-asambleas.pdf'
+  'Reglamento interno de socios',
+  'Documento oficial que establece los derechos y obligaciones de los socios de la cooperativa, así como los procedimientos para altas, bajas y modificaciones de servicios.',
+  'OTRO',
+  'documentos/reglamento-interno.pdf'
 ),
 (
-    'Política de Privacidad y Datos',
-    'Declaración sobre el tratamiento, almacenamiento y protección de los datos personales de los socios conforme a la normativa vigente.',
-    'documentos/politica-privacidad.pdf'
+  'Manual de ProCoop P-Móvil',
+  'Guía de uso de la aplicación móvil para la toma de estados de medidores. Incluye configuración del dispositivo, sincronización con el sistema central y resolución de problemas comunes.',
+  'MANUAL',
+  'documentos/manual-pmovil.pdf'
 ),
 (
-    'Tarifario de Servicios 2025',
-    'Listado actualizado de comisiones, aranceles y costos asociados a los productos y servicios ofrecidos por la cooperativa.',
-    'documentos/tarifario-2025.pdf'
-),
-(
-    'Manual de Educación Financiera',
-    'Guía práctica elaborada por la cooperativa para orientar a los socios en el manejo responsable de sus finanzas personales.',
-    'documentos/manual-educacion-financiera.pdf'
-),
-(
-    'Informe de Auditoría Externa 2024',
-    'Resultado de la auditoría contable externa realizada sobre los estados financieros del ejercicio 2024.',
-    'documentos/auditoria-externa-2024.pdf'
-),
-(
-    'Reglamento Interno de Personal',
-    'Normativa que regula las relaciones laborales, derechos y obligaciones del personal que trabaja en la cooperativa.',
-    'documentos/reglamento-personal.pdf'
+  'Política de privacidad y tratamiento de datos',
+  'Documento que describe cómo Procoop recopila, utiliza y protege los datos personales de sus asociados y usuarios, en cumplimiento con la Ley 25.326 de Protección de Datos Personales.',
+  'OTRO',
+  'documentos/politica-privacidad.pdf'
 );
