@@ -1,4 +1,4 @@
 export const environment = {
   produccion: true,
-  apiUrl: '/api',
+  apiUrl: 'https://procoop-backend.onrender.com/api',
 };
