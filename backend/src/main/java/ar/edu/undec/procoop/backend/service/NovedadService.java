@@ -33,7 +33,7 @@ public class NovedadService {
     private final NovedadRepository novedadRepository;
     private final ArchivoService archivoService;
 
-    @Value("${app.frontend.url:http://localhost:8080}")
+    @Value("${FRONTEND_URL:http://localhost:8080}")
     private String baseUrl;
 
     public List<NovedadResponseDTO> listar() {

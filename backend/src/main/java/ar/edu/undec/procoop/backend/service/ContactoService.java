@@ -19,7 +19,7 @@ public class ContactoService {
 
     private final JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
+    @Value("${MAIL_USERNAME}")
     private String emailDestino;
 
     public void enviarConsulta(ContactoRequestDTO dto) {

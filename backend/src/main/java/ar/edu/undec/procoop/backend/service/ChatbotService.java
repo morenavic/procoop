@@ -16,13 +16,13 @@ import org.springframework.web.client.RestClient;
 @Service
 public class ChatbotService {
 
-    @Value("${app.openai.api-key}")
+    @Value("${OPENAI_API_KEY}")
     private String apiKey;
 
-    @Value("${app.openai.url}")
+    @Value("${OPENAI_URL}")
     private String openaiUrl;
 
-    @Value("${app.openai.model}")
+    @Value("${OPENAI_MODEL}")
     private String modelo;
 
    private static final String CONTEXTO_PROCOOP = """
