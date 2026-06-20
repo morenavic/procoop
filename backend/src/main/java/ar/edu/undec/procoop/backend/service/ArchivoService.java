@@ -40,7 +40,7 @@ public class ArchivoService {
     private static final long MAX_TAMANIO_IMAGEN = 5 * 1024 * 1024;      // 5MB
     private static final long MAX_TAMANIO_DOCUMENTO = 20 * 1024 * 1024;  // 20MB
 
-    @Value("${app.uploads.dir}")
+    @Value("${UPLOADS_DIR}")
     private String uploadsDir;
 
     /**

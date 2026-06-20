@@ -16,10 +16,10 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
+    @Value("${MAIL_USERNAME}")
     private String emailOrigen;
 
-    @Value("${app.frontend.url}")
+    @Value("${FRONTEND_URL}")
     private String frontendUrl;
 
     /**
