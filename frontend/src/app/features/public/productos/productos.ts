@@ -59,9 +59,4 @@ export class ProductosPublicoComponent implements OnInit {
     this.productoSeleccionado.set(null);
     document.body.style.overflow = '';
   }
-
-  imagenUrl(imagen: string | null): string {
-    if (!imagen) return '';
-    return `http://localhost:8080/uploads/${imagen}`;
-  }
 }

@@ -24,19 +24,19 @@ export class InicioPublicoComponent implements OnInit {
 
   readonly razones = [
     {
-      titulo: '+15 años de experiencia',
+      titulo: '+20 años de experiencia',
       descripcion:
-        'Más de 15 años trabajando con cooperativas nos dan el conocimiento necesario para entender tu negocio.',
+        'Más de 20 años trabajando con cooperativas nos dan el conocimiento necesario para entender tu negocio.',
     },
     {
       titulo: 'Soluciones a medida',
       descripcion:
-        'Cada solución es el resultado del análisis particular de cada cliente, sin respuestas genéricas.',
+        'Cada solución es el resultado del análisis particular de cada cliente.',
     },
     {
       titulo: 'Socios tecnológicos',
       descripcion:
-        'No somos solo proveedores, somos socios que acompañan el crecimiento de tu organización.',
+        'No somos solo proveedores, somos socios que acompañan el crecimiento de tu cooperativa.',
     },
     {
       titulo: 'Calidad garantizada',

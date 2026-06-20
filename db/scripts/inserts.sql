@@ -15,13 +15,13 @@ INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol) 
 ('Administrador Procoop', 'admin@procoop.com.ar', '$2a$10$eu9h07R38PN2JLT7ubsNGuJ6m0G0niIXdlcb.rqqIKRyzMC9itadm', 'ADM-001', 'ACTIVO', 1);
 
 INSERT INTO usuario (nombre, email, contrasenia, numero_cuenta, estado, id_rol) VALUES
-('María González', 'maria.gonzalez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-001', 'ACTIVO', 2),
-('Carlos Rodríguez', 'carlos.rodriguez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-002', 'ACTIVO', 2),
-('Ana Martínez', 'ana.martinez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-003', 'ACTIVO', 2),
-('Luis Fernández', 'luis.fernandez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-004', 'ACTIVO', 2),
-('Laura Pérez', 'laura.perez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-005', 'INACTIVO', 2),
-('Diego Sánchez', 'diego.sanchez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-006', 'PENDIENTE', 2),
-('Sofía López', 'sofia.lopez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', 'CLI-007', 'ACTIVO', 2);
+('María González', 'maria.gonzalez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '001001', 'ACTIVO', 2),
+('Carlos Rodríguez', 'carlos.rodriguez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '002002', 'ACTIVO', 2),
+('Ana Martínez', 'ana.martinez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '003003', 'ACTIVO', 2),
+('Luis Fernández', 'luis.fernandez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '004004', 'ACTIVO', 2),
+('Laura Pérez', 'laura.perez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '005005', 'INACTIVO', 2),
+('Diego Sánchez', 'diego.sanchez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '006006', 'PENDIENTE', 2),
+('Sofía López', 'sofia.lopez@gmail.com', '$2a$10$jXcIWSil391WVfoYllZsduqjGaRnDGPzFMc.xgZ8ysSV3MYG.ED72', '007007', 'ACTIVO', 2);
 
 -- ============================================================
 -- PRODUCTOS
