@@ -1,113 +1,94 @@
 package ar.edu.undec.procoop.backend.service;
 
-import ar.edu.undec.procoop.backend.exception.AppException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 /**
- * Servicio para el manejo de archivos subidos al servidor.
+ * Servicio de gestión de archivos usando Cloudinary.
  *
- * Responsabilidades:
- *  - Validar tipo y tamaño de archivos
- *  - Guardar archivos en disco con nombre único (UUID)
- *  - Eliminar archivos del disco
+ * Reemplaza el almacenamiento en disco local por almacenamiento
+ * en la nube, garantizando persistencia en producción.
  *
- * Los archivos se guardan en: {uploadsDir}/{subcarpeta}/{uuid}.{extension}
- * La ruta relativa guardada en BD es: {subcarpeta}/{uuid}.{extension}
+ * Las URLs devueltas por Cloudinary son públicas y permanentes.
  */
 @Service
+@RequiredArgsConstructor
 public class ArchivoService {
 
-    private static final List<String> TIPOS_IMAGEN_PERMITIDOS =
-            List.of("image/jpeg", "image/png", "image/webp");
-
-    private static final List<String> TIPOS_DOCUMENTO_PERMITIDOS =
-            List.of("application/pdf",
-                    "application/msword",
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    "application/vnd.ms-excel",
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-
-    private static final long MAX_TAMANIO_IMAGEN = 5 * 1024 * 1024;      // 5MB
-    private static final long MAX_TAMANIO_DOCUMENTO = 20 * 1024 * 1024;  // 20MB
-
-    @Value("${UPLOADS_DIR}")
-    private String uploadsDir;
+    private final Cloudinary cloudinary;
 
     /**
-     * Guarda una imagen en la subcarpeta indicada.
-     * Valida tipo MIME y tamaño antes de guardar.
+     * Sube un archivo a Cloudinary y devuelve la URL pública.
      *
-     * @param archivo    archivo recibido del frontend
-     * @param subcarpeta subcarpeta destino (ej: "novedades", "productos")
-     * @return ruta relativa guardada en BD (ej: "novedades/uuid.jpg")
+     * @param archivo   archivo recibido desde el formulario
+     * @param carpeta   subcarpeta en Cloudinary (novedades, productos, documentos, perfiles)
+     * @return URL pública del archivo en Cloudinary
      */
-    public String guardarImagen(MultipartFile archivo, String subcarpeta) {
-        validarArchivo(archivo, TIPOS_IMAGEN_PERMITIDOS, MAX_TAMANIO_IMAGEN,
-                "Solo se permiten imágenes JPG, PNG o WEBP de hasta 5MB");
-        return guardar(archivo, subcarpeta);
+    public String guardarArchivo(MultipartFile archivo, String carpeta) {
+        try {
+            Map resultado = cloudinary.uploader().upload(
+                    archivo.getBytes(),
+                    ObjectUtils.asMap(
+                            "folder", "procoop/" + carpeta,
+                            "resource_type", "auto"
+                    )
+            );
+            return (String) resultado.get("secure_url");
+        } catch (IOException e) {
+            throw new RuntimeException("Error al subir archivo a Cloudinary: " + e.getMessage());
+        }
     }
 
     /**
-     * Guarda un documento en la subcarpeta indicada.
-     * Valida tipo MIME y tamaño antes de guardar.
+     * Elimina un archivo de Cloudinary usando su URL pública.
+     * Si la URL es nula o no es de Cloudinary, no hace nada.
+     *
+     * @param url URL pública del archivo en Cloudinary
      */
-    public String guardarDocumento(MultipartFile archivo, String subcarpeta) {
-        validarArchivo(archivo, TIPOS_DOCUMENTO_PERMITIDOS, MAX_TAMANIO_DOCUMENTO,
-                "Solo se permiten documentos PDF, Word o Excel de hasta 20MB");
-        return guardar(archivo, subcarpeta);
+    public void eliminar(String url) {
+        if (url == null || url.isBlank()) return;
+        try {
+            String publicId = extraerPublicId(url);
+            if (publicId != null) {
+                cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+            }
+        } catch (IOException e) {
+            // No lanzamos excepción si falla la eliminación
+        }
     }
 
     /**
-     * Elimina un archivo del disco dado su ruta relativa.
-     * Si no existe, no lanza error (operación idempotente).
+     * Extrae el public_id de Cloudinary desde la URL completa.
+     * Ejemplo: https://res.cloudinary.com/dj8dgicjj/image/upload/v123/procoop/productos/abc.jpg
+     * → procoop/productos/abc
      */
-    public void eliminar(String rutaRelativa) {
-        if (rutaRelativa == null || rutaRelativa.isBlank()) return;
+    private String extraerPublicId(String url) {
         try {
-            Path ruta = Paths.get(uploadsDir, rutaRelativa);
-            Files.deleteIfExists(ruta);
-        } catch (IOException e) {
-            // Se loguea pero no se lanza excepción — no es crítico
+            String[] partes = url.split("/upload/");
+            if (partes.length < 2) return null;
+            String conVersion = partes[1];
+            // Remover versión si existe (v1234567/)
+            String sinVersion = conVersion.replaceFirst("v\\d+/", "");
+            // Remover extensión
+            int punto = sinVersion.lastIndexOf('.');
+            return punto > 0 ? sinVersion.substring(0, punto) : sinVersion;
+        } catch (Exception e) {
+            return null;
         }
     }
 
-    private String guardar(MultipartFile archivo, String subcarpeta) {
-        try {
-            String extension = obtenerExtension(archivo.getOriginalFilename());
-            String nombreArchivo = UUID.randomUUID() + "." + extension;
-            Path destino = Paths.get(uploadsDir, subcarpeta, nombreArchivo);
-            Files.copy(archivo.getInputStream(), destino);
-            return subcarpeta + "/" + nombreArchivo;
-        } catch (IOException e) {
-            throw new AppException("Error al guardar el archivo", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    // Métodos de compatibilidad con los servicios existentes
+    public String guardarImagen(MultipartFile archivo, String carpeta) {
+        return guardarArchivo(archivo, carpeta);
     }
 
-    private void validarArchivo(MultipartFile archivo, List<String> tiposPermitidos,
-                                long maxTamanio, String mensajeError) {
-        if (archivo == null || archivo.isEmpty()) {
-            throw new AppException("El archivo no puede estar vacío", HttpStatus.BAD_REQUEST);
-        }
-        if (!tiposPermitidos.contains(archivo.getContentType())) {
-            throw new AppException(mensajeError, HttpStatus.BAD_REQUEST);
-        }
-        if (archivo.getSize() > maxTamanio) {
-            throw new AppException(mensajeError, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    private String obtenerExtension(String nombreArchivo) {
-        if (nombreArchivo == null || !nombreArchivo.contains(".")) return "bin";
-        return nombreArchivo.substring(nombreArchivo.lastIndexOf('.') + 1).toLowerCase();
+    public String guardarDocumento(MultipartFile archivo, String carpeta) {
+        return guardarArchivo(archivo, carpeta);
     }
 }
