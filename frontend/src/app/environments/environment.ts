@@ -4,5 +4,7 @@
  */
 export const environment = {
   produccion: false,
-  apiUrl: 'http://localhost:8080/api'
+  apiUrl: 'http://localhost:8080/api',
+  uploadsUrl: 'http://localhost:8080',
 };
+
