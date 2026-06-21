@@ -5,6 +5,7 @@ import { ProductoPublicoService } from '../../../core/services/producto-publico.
 import { ServicioPublicoService } from '../../../core/services/servicio-publico.service';
 import { Producto } from '../../../core/models/producto.model';
 import { Servicio } from '../../../core/models/servicio.model';
+import { environment } from '../../../environments/environment';
 
 /**
  * Pantalla de inicio del sitio público.
@@ -62,6 +63,6 @@ export class InicioPublicoComponent implements OnInit {
 
   imagenUrl(imagen: string | null): string {
     if (!imagen) return '';
-    return `http://localhost:8080/uploads/${imagen}`;
+    return `${environment.uploadsUrl}/uploads/${imagen}`;
   }
 }
