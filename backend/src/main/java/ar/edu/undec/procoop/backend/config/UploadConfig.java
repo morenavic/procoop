@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 @Configuration
 public class UploadConfig implements WebMvcConfigurer {
 
-    @Value("${UPLOADS_DIR}")
+    @Value("${app.uploads.dir}")
     private String uploadsDir;
 
     /**

@@ -32,11 +32,15 @@ public class ArchivoService {
      */
     public String guardarArchivo(MultipartFile archivo, String carpeta) {
         try {
+            String nombreOriginal = archivo.getOriginalFilename();
             Map resultado = cloudinary.uploader().upload(
                     archivo.getBytes(),
                     ObjectUtils.asMap(
                             "folder", "procoop/" + carpeta,
-                            "resource_type", "auto"
+                            "resource_type", "auto",
+                            "use_filename", true,
+                            "unique_filename", true,
+                            "overwrite", false
                     )
             );
             return (String) resultado.get("secure_url");

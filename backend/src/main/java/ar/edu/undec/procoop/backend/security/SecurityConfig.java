@@ -38,7 +38,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Value("${FRONTEND_URL}")
+    @Value("${app.frontend.url}")
     private String frontendUrl;
 
     @Bean
