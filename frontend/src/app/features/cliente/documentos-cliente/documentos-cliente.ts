@@ -74,7 +74,6 @@ export class DocumentosClienteComponent implements OnInit {
     if (!documento.archivoUrl) return;
     const link = document.createElement('a');
     link.href = documento.archivoUrl;
-    link.download = documento.nombre;
     link.target = '_blank';
     link.click();
   }
@@ -95,23 +94,5 @@ export class DocumentosClienteComponent implements OnInit {
       OTRO: 'tipo--otro',
     };
     return clases[tipo] ?? '';
-  }
-
-  obtenerExtension(url: string | null): string {
-    if (!url) return '';
-    const partes = url.split('.');
-    return partes[partes.length - 1].toUpperCase();
-  }
-
-  claseExtension(url: string | null): string {
-    const ext = this.obtenerExtension(url).toLowerCase();
-    const clases: Record<string, string> = {
-      pdf: 'ext--pdf',
-      doc: 'ext--word',
-      docx: 'ext--word',
-      xls: 'ext--excel',
-      xlsx: 'ext--excel',
-    };
-    return clases[ext] ?? 'ext--default';
   }
 }

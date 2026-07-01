@@ -93,9 +93,14 @@ public class DocumentoService {
     }
 
     private DocumentoResponseDTO mapearAResponse(Documento documento) {
-        String archivoUrl = documento.getArchivo() != null
-                ? "http://localhost:8080/uploads/" + documento.getArchivo()
-                : null;
+        String archivoUrl = null;
+        if (documento.getArchivo() != null) {
+            // Si ya es una URL completa (Cloudinary), usarla directamente
+            // Si es una ruta relativa, construir la URL local
+            archivoUrl = documento.getArchivo().startsWith("http")
+                    ? documento.getArchivo()
+                    : "http://localhost:8080/uploads/" + documento.getArchivo();
+        }
 
         return new DocumentoResponseDTO(
                 documento.getIdDocumento(),

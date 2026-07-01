@@ -19,6 +19,7 @@ import { DocumentoFormComponent } from './documento-form/documento-form';
   styleUrl: './documentos.scss',
 })
 export class DocumentosComponent implements OnInit {
+
   documentos = signal<Documento[]>([]);
   cargando = signal(true);
   error = signal<string | null>(null);
@@ -103,21 +104,21 @@ export class DocumentosComponent implements OnInit {
     });
   }
 
-  obtenerExtension(url: string | null): string {
-    if (!url) return '';
-    const partes = url.split('.');
-    return partes[partes.length - 1].toUpperCase();
+  etiquetaTipo(tipo: string): string {
+    const etiquetas: Record<string, string> = {
+      MANUAL: 'Manual',
+      GUIA: 'Guía',
+      OTRO: 'Otro',
+    };
+    return etiquetas[tipo] ?? tipo;
   }
 
-  claseExtension(url: string | null): string {
-    const ext = this.obtenerExtension(url).toLowerCase();
+  claseTipo(tipo: string): string {
     const clases: Record<string, string> = {
-      pdf: 'ext--pdf',
-      doc: 'ext--word',
-      docx: 'ext--word',
-      xls: 'ext--excel',
-      xlsx: 'ext--excel',
+      MANUAL: 'tipo--manual',
+      GUIA: 'tipo--guia',
+      OTRO: 'tipo--otro',
     };
-    return clases[ext] ?? 'ext--default';
+    return clases[tipo] ?? '';
   }
 }

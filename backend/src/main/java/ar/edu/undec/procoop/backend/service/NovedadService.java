@@ -33,7 +33,7 @@ public class NovedadService {
     private final NovedadRepository novedadRepository;
     private final ArchivoService archivoService;
 
-    @Value("${FRONTEND_URL:http://localhost:8080}")
+    @Value("${app.frontend.url}")
     private String baseUrl;
 
     public List<NovedadResponseDTO> listar() {
@@ -102,16 +102,13 @@ public class NovedadService {
      * Si no hay imagen, devuelve null.
      */
     private NovedadResponseDTO mapearAResponse(Novedad novedad) {
-        String imagenUrl = novedad.getImagen() != null
-                ? "http://localhost:8080/uploads/" + novedad.getImagen()
-                : null;
 
         return new NovedadResponseDTO(
                 novedad.getIdNovedad(),
                 novedad.getTitulo(),
                 novedad.getDescripcion(),
                 novedad.getFecha(),
-                imagenUrl,
+                novedad.getImagen(),
                 novedad.getTipo()
         );
     }

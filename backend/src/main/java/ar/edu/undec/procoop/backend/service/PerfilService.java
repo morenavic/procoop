@@ -73,16 +73,13 @@ public class PerfilService {
     }
 
     private PerfilResponseDTO mapearAResponse(Usuario usuario) {
-        String imagenUrl = usuario.getImagen() != null
-                ? "http://localhost:8080/uploads/" + usuario.getImagen()
-                : null;
 
         return new PerfilResponseDTO(
                 usuario.getIdUsuario(),
                 usuario.getNombre(),
                 usuario.getEmail(),
                 usuario.getNumeroCuenta(),
-                imagenUrl
+                usuario.getImagen()
         );
     }
 }

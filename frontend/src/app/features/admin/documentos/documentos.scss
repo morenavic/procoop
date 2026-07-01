@@ -178,10 +178,13 @@
   font-weight: 700;
   letter-spacing: 0.05em;
 
-  &.ext--pdf   { background: #fee2e2; color: #b91c1c; }
-  &.ext--word  { background: #dbeafe; color: #1d4ed8; }
-  &.ext--excel { background: #dcfce7; color: #15803d; }
-  &.ext--default { background: var(--color-fondo-suave); color: var(--color-texto-secundario); }
+  // &.ext--pdf   { background: #fee2e2; color: #b91c1c; }
+  // &.ext--word  { background: #dbeafe; color: #1d4ed8; }
+  // &.ext--excel { background: #dcfce7; color: #15803d; }
+  // &.ext--default { background: var(--color-fondo-suave); color: var(--color-texto-secundario); }
+  &.tipo--manual { background: #dbeafe; color: #1d4ed8; }
+  &.tipo--guia   { background: #dcfce7; color: #15803d; }
+  &.tipo--otro   { background: var(--color-fondo-suave); color: var(--color-texto-secundario); }
 }
 
 // --- Acciones ---

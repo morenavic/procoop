@@ -87,16 +87,13 @@ public class ProductoService {
     }
 
     private ProductoResponseDTO mapearAResponse(Producto producto) {
-        String imagenUrl = producto.getImagen() != null
-                ? "http://localhost:8080/uploads/" + producto.getImagen()
-                : null;
 
         return new ProductoResponseDTO(
                 producto.getIdProducto(),
                 producto.getTitulo(),
                 producto.getSubtitulo(),
                 producto.getDescripcion(),
-                imagenUrl
+                producto.getImagen()
         );
     }
 }
