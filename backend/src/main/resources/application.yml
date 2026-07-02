@@ -3,14 +3,14 @@ spring:
     name: procoop-backend
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/}
-    username: ${DB_USERNAME:}
-    password: ${DB_PASSWORD:}
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -25,13 +25,13 @@ spring:
 
   web:
     resources:
-      static-locations: file:${UPLOADS_DIR:uploads/}
+      static-locations: file:${WEB_RESOURCES_STATIC-LOCATIONS}
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:}
-    password: ${MAIL_PASSWORD:}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -40,24 +40,24 @@ spring:
             enable: true
 
 server:
-  port: ${PORT:8080}
+  port: ${SERVER_PORT}
 
 app:
   uploads:
-    dir: ${UPLOADS_DIR:uploads/}
+    dir: ${APP_UPLOADS_DIR}
   jwt:
-    secret: ${JWT_SECRET:}
-    expiration: ${JWT_EXPIRATION:}
+    secret: ${APP_JWT_SECRET}
+    expiration: ${APP_JWT_EXPIRATION}
   frontend:
-    url: ${FRONTEND_URL:http://localhost:4200}
+    url: ${APP_FRONTEND_URL}
   openai:
-    api-key: ${OPENAI_API_KEY:}
-    url: ${OPENAI_URL:https:}
-    model: ${OPENAI_MODEL:}
-   cloudinary:
-       cloud-name: ${CLOUDINARY_CLOUD_NAME:}
-       api-key: ${CLOUDINARY_API_KEY:}
-       api-secret: ${CLOUDINARY_API_SECRET:}
+    api-key: ${APP_OPENAI_API_KEY}
+    url: ${APP_OPENAI_URL}
+    model: ${APP_OPENAI_MODEL}
+  cloudinary:
+      cloud-name: ${APP_CLOUDINARY_CLOUD_NAME}
+      api-key: ${APP_CLOUDINARY_API_KEY}
+      api-secret: ${APP_CLOUDINARY_API_SECRET}
 logging:
   level:
     ar.edu.undec.procoop: INFO

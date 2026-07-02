@@ -173,10 +173,6 @@ public class ChatbotService {
                     .retrieve()
                     .body(String.class);
 
-            System.out.println("=== RESPUESTA OPENAI ===");
-            System.out.println(response);
-            System.out.println("========================");
-
             String texto = extraerTexto(response);
             return new ChatResponseDTO(texto);
 

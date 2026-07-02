@@ -37,14 +37,6 @@ public class AuthService {
                 .orElseThrow(() -> new AppException(
                         "Credenciales inválidas", HttpStatus.UNAUTHORIZED));
 
-        // DEBUG TEMPORAL
-        System.out.println("=== DEBUG LOGIN ===");
-        System.out.println("Email: " + request.getEmail());
-        System.out.println("Contraseña ingresada: [" + request.getContrasenia() + "]");
-        System.out.println("Hash en BD: [" + usuario.getContrasenia() + "]");
-        System.out.println("Matches: " + passwordEncoder.matches(request.getContrasenia(), usuario.getContrasenia()));
-        System.out.println("==================");
-
         if (!passwordEncoder.matches(request.getContrasenia(), usuario.getContrasenia())) {
             throw new AppException("Credenciales inválidas", HttpStatus.UNAUTHORIZED);
         }
