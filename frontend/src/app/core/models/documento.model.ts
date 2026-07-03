@@ -7,6 +7,7 @@ export interface Documento {
   descripcion: string | null;
   tipo: string;
   archivoUrl: string | null;
+  nombreArchivo: string | null;
 }
 
 export interface DocumentoRequest {

@@ -170,40 +170,47 @@ INSERT INTO documento (nombre, descripcion, tipo, archivo) VALUES
   'Guía completa para el uso del sistema ProCoop Gestión. Cubre todos los módulos disponibles: asociados, servicios, consumos, facturación, ventas y cobranzas.',
   'MANUAL',
   'documentos/manual-procoop-gestion.pdf'
+  NULL
 ),
 (
   'Guía de instalación y configuración inicial',
   'Paso a paso para la instalación del sistema ProCoop en entornos Windows Server. Incluye requisitos mínimos de hardware, configuración de base de datos y puesta en marcha.',
   'GUIA',
   'documentos/guia-instalacion.pdf'
+  NULL
 ),
 (
   'Manual de módulo facturación electrónica',
   'Documentación completa del módulo de facturación electrónica integrado con AFIP. Incluye configuración de certificados digitales, tipos de comprobantes y resolución de errores frecuentes.',
   'MANUAL',
   'documentos/manual-facturacion-electronica.pdf'
+  NULL
 ),
 (
   'Guía de migración de datos',
   'Procedimiento detallado para la migración de datos desde sistemas anteriores a ProCoop Gestión. Incluye formatos de importación, validaciones y verificación de integridad.',
   'GUIA',
   'documentos/guia-migracion-datos.pdf'
+  NULL
 ),
 (
   'Reglamento interno de socios',
   'Documento oficial que establece los derechos y obligaciones de los socios de la cooperativa, así como los procedimientos para altas, bajas y modificaciones de servicios.',
   'OTRO',
   'documentos/reglamento-interno.pdf'
+  NULL
 ),
 (
   'Manual de ProCoop P-Móvil',
   'Guía de uso de la aplicación móvil para la toma de estados de medidores. Incluye configuración del dispositivo, sincronización con el sistema central y resolución de problemas comunes.',
   'MANUAL',
   'documentos/manual-pmovil.pdf'
+  NULL
 ),
 (
   'Política de privacidad y tratamiento de datos',
   'Documento que describe cómo Procoop recopila, utiliza y protege los datos personales de sus asociados y usuarios, en cumplimiento con la Ley 25.326 de Protección de Datos Personales.',
   'OTRO',
   'documentos/politica-privacidad.pdf'
+  NULL
 );

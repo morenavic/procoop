@@ -67,7 +67,8 @@ CREATE TABLE documento (
     descripcion  TEXT,
     tipo         VARCHAR(20)  NOT NULL DEFAULT 'OTRO'
                      CHECK (tipo IN ('MANUAL', 'GUIA', 'OTRO')),
-    archivo      VARCHAR(255) NOT NULL
+    archivo      VARCHAR(255) NOT NULL,
+    nombre_archivo VARCHAR(255)
 );
 
 -- ============================================================

@@ -62,6 +62,7 @@ public class DocumentoService {
         documento.setDescripcion(dto.getDescripcion());
         documento.setTipo(dto.getTipo());
         documento.setArchivo(archivoService.guardarDocumento(archivo, "documentos"));
+        documento.setNombreArchivo(archivo.getOriginalFilename());
 
         return mapearAResponse(documentoRepository.save(documento));
     }
@@ -72,9 +73,10 @@ public class DocumentoService {
         documento.setDescripcion(dto.getDescripcion());
         documento.setTipo(dto.getTipo());
 
-        if (archivo != null && !archivo.isEmpty()) {
+        if (!archivo.isEmpty()) {
             archivoService.eliminar(documento.getArchivo());
             documento.setArchivo(archivoService.guardarDocumento(archivo, "documentos"));
+            documento.setNombreArchivo(archivo.getOriginalFilename());
         }
 
         return mapearAResponse(documentoRepository.save(documento));
@@ -107,7 +109,8 @@ public class DocumentoService {
                 documento.getNombre(),
                 documento.getDescripcion(),
                 documento.getTipo(),
-                archivoUrl
+                archivoUrl,
+                documento.getNombreArchivo()
         );
     }
 }

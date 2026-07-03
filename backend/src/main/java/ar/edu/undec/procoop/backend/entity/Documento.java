@@ -31,4 +31,7 @@ public class Documento {
 
     @Column(name = "tipo", nullable = false, length = 20)
     private String tipo;
+
+    @Column(name = "nombre_archivo")
+    private String nombreArchivo;
 }

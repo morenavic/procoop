@@ -14,4 +14,5 @@ public class DocumentoResponseDTO {
     private String descripcion;
     private String tipo;
     private String archivoUrl;
+    private String nombreArchivo;
 }
