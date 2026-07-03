@@ -72,10 +72,16 @@ export class DocumentosClienteComponent implements OnInit {
 
   descargar(documento: Documento): void {
     if (!documento.archivoUrl) return;
-    const link = document.createElement('a');
-    link.href = documento.archivoUrl;
-    link.target = '_blank';
-    link.click();
+    fetch(documento.archivoUrl)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = documento.nombreArchivo ?? documento.nombre;
+        link.click();
+        URL.revokeObjectURL(url);
+      });
   }
 
   etiquetaTipo(tipo: string): string {
