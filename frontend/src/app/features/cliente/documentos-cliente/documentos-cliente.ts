@@ -78,10 +78,8 @@ export class DocumentosClienteComponent implements OnInit {
       documento.archivoUrl.toLowerCase().includes('.pdf');
 
     if (esPdf) {
-      // PDF: abrir en nueva pestaña, el navegador lo maneja
       window.open(documento.archivoUrl, '_blank');
     } else {
-      // Excel, Word y otros: forzar descarga
       const link = document.createElement('a');
       link.href = documento.archivoUrl;
       link.download = documento.nombreArchivo ?? documento.nombre;
