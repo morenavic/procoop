@@ -73,7 +73,7 @@ public class DocumentoService {
         documento.setDescripcion(dto.getDescripcion());
         documento.setTipo(dto.getTipo());
 
-        if (!archivo.isEmpty()) {
+        if (archivo != null && !archivo.isEmpty()) {
             archivoService.eliminar(documento.getArchivo());
             documento.setArchivo(archivoService.guardarDocumento(archivo, "documentos"));
             documento.setNombreArchivo(archivo.getOriginalFilename());

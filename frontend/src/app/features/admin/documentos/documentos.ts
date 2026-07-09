@@ -69,17 +69,8 @@ export class DocumentosComponent implements OnInit {
   }
 
   descargar(documento: Documento): void {
-    if (!documento.archivoUrl) return;
-    fetch(documento.archivoUrl)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = documento.nombreArchivo ?? documento.nombre;
-        link.click();
-        URL.revokeObjectURL(url);
-      })
+  if (!documento.archivoUrl) return;
+  window.open(documento.archivoUrl, '_blank');
   }
 
   confirmarEliminacion(documento: Documento): void {
