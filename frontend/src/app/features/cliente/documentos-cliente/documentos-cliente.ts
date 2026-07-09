@@ -71,8 +71,23 @@ export class DocumentosClienteComponent implements OnInit {
   }
 
   descargar(documento: Documento): void {
-  if (!documento.archivoUrl) return;
-  window.open(documento.archivoUrl, '_blank');
+    if (!documento.archivoUrl) return;
+
+    const esPdf =
+      documento.nombreArchivo?.toLowerCase().endsWith('.pdf') ||
+      documento.archivoUrl.toLowerCase().includes('.pdf');
+
+    if (esPdf) {
+      // PDF: abrir en nueva pestaña, el navegador lo maneja
+      window.open(documento.archivoUrl, '_blank');
+    } else {
+      // Excel, Word y otros: forzar descarga
+      const link = document.createElement('a');
+      link.href = documento.archivoUrl;
+      link.download = documento.nombreArchivo ?? documento.nombre;
+      link.target = '_blank';
+      link.click();
+    }
   }
 
   etiquetaTipo(tipo: string): string {
