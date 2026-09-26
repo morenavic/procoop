@@ -1,34 +1,38 @@
 package ar.edu.undec.procoop.backend.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-
 import ar.edu.undec.procoop.backend.dto.request.ContactoRequestDTO;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Servicio para el envío de consultas desde el formulario de contacto público.
- * Usa el mismo JavaMailSender configurado con Gmail SMTP.
- * El email de destino es el mismo correo configurado como remitente.
+ * Usa la API HTTP de Resend en lugar de SMTP para evitar bloqueos de Render.
  */
 @Service
-@RequiredArgsConstructor
 public class ContactoService {
 
-    private final JavaMailSender mailSender;
+    @Value("${app.resend.api-key}")
+    private String resendApiKey;
 
-    @Value("${spring.mail.username}")
-    private String emailDestino;
+    @Value("${app.resend.from}")
+    private String emailFrom;
+
+    @Value("${app.resend.to}")
+    private String emailTo;
 
     public void enviarConsulta(ContactoRequestDTO dto) {
-        SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom(emailDestino);
-        mensaje.setTo(emailDestino);
-        mensaje.setReplyTo(dto.getEmail());
-        mensaje.setSubject("Consulta web — " + dto.getAsunto());
-        mensaje.setText("""
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(resendApiKey);
+
+        String texto = """
                 Nueva consulta recibida desde el sitio web de Procoop.
                 
                 Nombre: %s
@@ -38,15 +42,24 @@ public class ContactoService {
                 Mensaje:
                 %s
                 """.formatted(
-                        dto.getNombre(),
-                        dto.getEmail(),
-                        dto.getTelefono() != null && !dto.getTelefono().isBlank()
-                                ? "Teléfono: " + dto.getTelefono() + "\n"
-                                : "",
-                        dto.getAsunto(),
-                        dto.getMensaje()
-                )
+                dto.getNombre(),
+                dto.getEmail(),
+                dto.getTelefono() != null && !dto.getTelefono().isBlank()
+                        ? "Teléfono: " + dto.getTelefono() + "\n"
+                        : "",
+                dto.getAsunto(),
+                dto.getMensaje()
         );
-        mailSender.send(mensaje);
+
+        Map<String, Object> body = Map.of(
+                "from", emailFrom,
+                "to", List.of(emailTo),
+                "reply_to", dto.getEmail(),
+                "subject", "Consulta web — " + dto.getAsunto(),
+                "text", texto
+        );
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+        restTemplate.postForEntity("https://api.resend.com/emails", request, String.class);
     }
 }

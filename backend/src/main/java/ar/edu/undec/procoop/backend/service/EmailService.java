@@ -1,50 +1,66 @@
 package ar.edu.undec.procoop.backend.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
 
 /**
- * Servicio para el envío de emails.
- * Usa JavaMailSender configurado con Gmail SMTP.
+ * Servicio para el envío de emails usando la API HTTP de Resend.
+ * Reemplaza JavaMailSender para evitar bloqueos SMTP en Render.
  */
 @Service
-@RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    @Value("${app.resend.api-key}")
+    private String resendApiKey;
 
-    @Value("${spring.mail.username}")
-    private String emailOrigen;
+    @Value("${app.resend.from}")
+    private String emailFrom;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
 
-    /**
-     * Envía el email de recuperación de contraseña con el link temporal.
-     *
-     * @param destinatario email del usuario
-     * @param token        token único generado para esta solicitud
-     */
     public void enviarEmailRecuperacion(String destinatario, String token) {
         String link = frontendUrl + "/acceso/restablecer?token=" + token;
 
-        SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom(emailOrigen);
-        mensaje.setTo(destinatario);
-        mensaje.setSubject("Recuperación de contraseña — Procoop");
-        mensaje.setText(
-                "Hola,\n\n" +
-                        "Recibimos una solicitud para restablecer la contraseña de tu cuenta en Procoop.\n\n" +
-                        "Hacé click en el siguiente enlace para crear una nueva contraseña:\n\n" +
-                        link + "\n\n" +
-                        "Este enlace expira en 1 hora.\n\n" +
-                        "Si no solicitaste este cambio, podés ignorar este email.\n\n" +
-                        "Procoop"
+        String texto = """
+                Hola,
+                
+                Recibimos una solicitud para restablecer la contraseña de tu cuenta en Procoop.
+                
+                Hacé click en el siguiente enlace para crear una nueva contraseña:
+                
+                %s
+                
+                Este enlace expira en 1 hora.
+                
+                Si no solicitaste este cambio, podés ignorar este email.
+                
+                Procoop
+                """.formatted(link);
+
+        enviar(destinatario, "Recuperación de contraseña — Procoop", texto);
+    }
+
+    private void enviar(String destinatario, String asunto, String texto) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(resendApiKey);
+
+        Map<String, Object> body = Map.of(
+                "from", emailFrom,
+                "to", List.of(destinatario),
+                "subject", asunto,
+                "text", texto
         );
 
-        mailSender.send(mensaje);
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+        restTemplate.postForEntity("https://api.resend.com/emails", request, String.class);
     }
 }

@@ -58,6 +58,11 @@ app:
       cloud-name: ${APP_CLOUDINARY_CLOUD_NAME}
       api-key: ${APP_CLOUDINARY_API_KEY}
       api-secret: ${APP_CLOUDINARY_API_SECRET}
+  app:
+    resend:
+      api-key: ${RESEND_API_KEY}
+      from: ${RESEND_FROM}
+      to: ${RESEND_TO}
 logging:
   level:
     ar.edu.undec.procoop: INFO
