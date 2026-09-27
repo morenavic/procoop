@@ -53,9 +53,7 @@
                 </svg>
               </div>
             }
-            <div class="mensaje-burbuja">
-              {{ mensaje.texto }}
-            </div>
+            <div class="mensaje-burbuja" [innerHTML]="textoAHtml(mensaje.texto)"></div>
           </div>
         }
 

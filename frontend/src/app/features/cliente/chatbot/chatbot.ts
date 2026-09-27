@@ -100,4 +100,9 @@ export class ChatbotComponent implements AfterViewChecked {
       el.scrollTop = el.scrollHeight;
     }
   }
+
+  textoAHtml(texto: string): string {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return texto.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
 }
