@@ -346,3 +346,24 @@
     transform: rotate(360deg);
   }
 }
+
+.volver-inicio {
+  text-align: center;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+// --- Volver al inicio ---
+.link-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.15s;
+
+  &:hover { color: #0052A6; }
+}
